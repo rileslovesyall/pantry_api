@@ -14,13 +14,14 @@ Bundler.require(:default, ENV["RACK_ENV"].to_sym)
 dbconfig = YAML.load(File.read('./config/database.yml'))
 ActiveRecord::Base.establish_connection dbconfig["#{settings.environment}"]
 
+# Require all app files
+
 Dir["./app/**/*.rb"].each { |f| require f }
 
 # Routes
 
-# require_relative 'app/helpers'
-require_relative 'app/routes/foo'
-require_relative 'app/routes/users'
+# require_relative 'app/routes/foo'
+# require_relative 'app/routes/users'
 
 class PantryApp < Sinatra::Base
 
