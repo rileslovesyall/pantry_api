@@ -18,9 +18,6 @@ module Pantry
       enable :logging
       enable :show_exceptions
       set :session_secret, "wubalubbadubdub"
-
-      use BetterErrors::Middleware
-      BetterErrors.application_root = __dir__
     end
 
     configure :test do
