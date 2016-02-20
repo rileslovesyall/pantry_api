@@ -18,20 +18,12 @@ ActiveRecord::Base.establish_connection dbconfig["#{settings.environment}"]
 
 Dir["./app/**/*.rb"].each { |f| require f }
 
-# Routes
-
-# require_relative 'app/routes/foo'
-# require_relative 'app/routes/users'
-
 class PantryApp < Sinatra::Base
 
   set :root, File.dirname(__FILE__)
 
   enable :sessions
 
-  # helpers Pantry::Helpers
-
-  # register Pantry::Routing::Foo
   register Pantry::Routing::Users
 
 end
