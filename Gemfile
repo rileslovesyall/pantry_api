@@ -14,6 +14,7 @@ gem 'json'
 
 group :development do
   gem 'rspec'
+  gem 'simplecov'
   gem 'factory_girl'
   gem "faker"
   gem 'dotenv'
