@@ -6,10 +6,10 @@ pantry_items = [
   {name: "Tomato Soup", description: "Get dat grilled cheese on.", quantity: 4, user_id: 1},
 ]
 
-users.each do |user|
-  User.create(user)
+users.each do |u|
+  User.create(u)
 end
 
-pantry_items.each do |pi|
-  PantryItem.create(pi)
+pantry_items.each do |p|
+  PantryItem.create(p)
 end
