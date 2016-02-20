@@ -26,5 +26,7 @@ class PantryApp < Sinatra::Base
 
   register Pantry::Routing::Users
 
+  register Sinatra::ActiveRecordExtension
+
 end
 
