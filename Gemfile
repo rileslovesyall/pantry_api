@@ -18,4 +18,5 @@ group :development do
   gem "factory_girl", "~> 4.0"
   gem "faker"
   gem 'dotenv'
+  gem 'shotgun'
 end

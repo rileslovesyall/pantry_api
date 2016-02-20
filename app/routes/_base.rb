@@ -6,9 +6,7 @@ module Pantry
       disable :run
       enable :sessions
       enable :method_override
-      set :views, "app/views"
       set :public_folder, "#{File.dirname(__FILE__)}/public"
-      set :sass, {:style => :compact } 
     end
 
     configure :production do
@@ -18,6 +16,7 @@ module Pantry
     configure :development do
       enable :logging
       enable :show_exceptions
+      set :session_secret, "wubalubbadubdub"
     end
 
     configure :test do

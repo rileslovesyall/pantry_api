@@ -6,7 +6,7 @@ module Pantry
 
         test_page = lambda do
           content_type :json
-          { :key1 => 'value1', :key2 => 'value2' }.to_json
+          { :key1 => 'somethingelse', :key2 => 'value2' }.to_json
         end
 
         app.get '/', &test_page
