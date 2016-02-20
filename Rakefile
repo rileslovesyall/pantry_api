@@ -13,7 +13,7 @@ task :default do
 end
 
 task :env do
-  require "#{File.dirname(__FILE__)}/application.rb"
+  require "#{File.dirname(__FILE__)}/app.rb"
 end
 
 begin

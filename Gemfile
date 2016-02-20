@@ -9,7 +9,6 @@ gem 'sqlite3'
 
 gem 'rake'
 
-
 gem 'json'
 
 group :development do
