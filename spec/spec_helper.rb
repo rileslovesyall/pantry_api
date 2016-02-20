@@ -2,6 +2,7 @@ ENV['RACK_ENV'] = "test"
 require File.expand_path(File.dirname(__FILE__) + "/../app.rb")
 require 'simplecov'
 require 'factory_girl'
+require 'rack/test'
 
 SimpleCov.start do
   add_filter '/support/'
@@ -31,5 +32,8 @@ RSpec.configure do |config|
   config.before(:suite) do
     FactoryGirl.find_definitions
   end
+
+  # For testing controllers
+  config.include Rack::Test::Methods
 
 end

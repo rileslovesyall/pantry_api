@@ -21,11 +21,9 @@ Dir["./app/**/*.rb"].each { |f| require f }
 class PantryApp < Sinatra::Base
 
   set :root, File.dirname(__FILE__)
-
   enable :sessions
 
   register Pantry::Routing::Users
-
   register Sinatra::ActiveRecordExtension
 
 end
