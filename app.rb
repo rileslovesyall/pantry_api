@@ -23,8 +23,10 @@ class PantryApp < Sinatra::Base
   set :root, File.dirname(__FILE__)
   enable :sessions
 
-  register Pantry::Routing::Users
   register Sinatra::ActiveRecordExtension
+
+  register Pantry::Controller::Users
+  register Pantry::Controller::PantryItems
 
 end
 

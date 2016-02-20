@@ -25,10 +25,6 @@ module Pantry
       disable :reload_templates
     end
 
-    get '/stylesheets/master.css' do
-      scss :master
-    end
-
     not_found do
       "Not Found"
     end
