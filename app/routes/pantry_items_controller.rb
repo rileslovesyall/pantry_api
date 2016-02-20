@@ -4,8 +4,8 @@ module Pantry
 
       def self.registered(app)
 
-        test_page = lambda do
-          p = PantryItem.find(2)
+        index = lambda do
+          p = PantryItem.all
           
           content_type :json
           p.to_json
@@ -18,7 +18,7 @@ module Pantry
           p.to_json
         end
 
-        app.get '/pantryitems', &test_page
+        app.get '/pantryitems', &index
         app.get '/pantryitems/:id', &show
 
       end

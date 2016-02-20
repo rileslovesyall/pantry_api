@@ -26,6 +26,7 @@ module Pantry
       disable :reload_templates
     end
 
+    # supposed to help the site load faster. not sure..
     before do
      last_modified settings.start_time
      etag settings.start_time.to_s
