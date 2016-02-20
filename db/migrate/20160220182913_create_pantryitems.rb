@@ -1,6 +1,6 @@
 class CreatePantryitems < ActiveRecord::Migration
   def change
-    create_table :pantryitems do |t|
+    create_table :pantry_items do |t|
       t.string :name
       t.text :description
       t.integer :quantity

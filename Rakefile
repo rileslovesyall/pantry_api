@@ -68,6 +68,13 @@ namespace :db do
     ActiveRecord::Migrator.migrate('db/migrate')
   end
 
+  desc 'drop the database'
+  task :drop => %w(env) do
+    ActiveRecord::Base.logger = Logger.new(STDOUT)
+    ActiveRecord::Migration.verbose = true
+    ActiveRecord::Migrator.down('db/migrate')
+  end
+
   desc 'Output the schema to db/schema.rb'
   task :schema => %w(env) do
     File.open('db/schema.rb', 'w') do |f|
