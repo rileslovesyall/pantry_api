@@ -7,6 +7,7 @@ module Pantry
       enable :sessions
       enable :method_override
       set :public_folder, "#{File.dirname(__FILE__)}/public"
+      set :start_time, Time.now
     end
 
     configure :production do
@@ -23,6 +24,12 @@ module Pantry
       enable :raise_errors
       disable :logging
       disable :reload_templates
+    end
+
+    before do
+     last_modified settings.start_time
+     etag settings.start_time.to_s
+     cache_control :public, :must_revalidate
     end
 
     not_found do

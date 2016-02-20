@@ -1,7 +1,7 @@
 FactoryGirl.define do
   
   factory :pantry_item, class: PantryItem do
-    name "Applesauce"
+    name "Pickled Parakeets"
     quantity 3
     user_id 3
   end

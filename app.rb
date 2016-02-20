@@ -28,5 +28,9 @@ class PantryApp < Sinatra::Base
   register Pantry::Controller::Users
   register Pantry::Controller::PantryItems
 
+  get "/" do
+    "Here's some stuff"
+  end
+
 end
 

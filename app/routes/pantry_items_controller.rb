@@ -5,13 +5,21 @@ module Pantry
       def self.registered(app)
 
         test_page = lambda do
-          p = PantryItem.find(1)
+          p = PantryItem.find(2)
           
           content_type :json
           p.to_json
         end
 
-        app.get '/', &test_page
+        show = lambda do
+          p = PantryItem.find(params[:id])
+
+          content_type :json
+          p.to_json
+        end
+
+        app.get '/pantryitems', &test_page
+        app.get '/pantryitems/:id', &show
 
       end
     end
