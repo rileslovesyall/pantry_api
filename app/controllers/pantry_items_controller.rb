@@ -6,9 +6,10 @@ module Pantry
 
         index = lambda do
           p = PantryItem.all
-          
+          response.headers['Access-Control-Allow-Origin'] = '*' 
           content_type :json
-          p.to_json
+          body 
+            {pantryitems: p}.to_json
         end
 
         show = lambda do
