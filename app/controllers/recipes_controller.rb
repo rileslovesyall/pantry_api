@@ -25,9 +25,9 @@ module Pantry
           ingredients.to_json
         end
 
-        app.get '/recipes', &index
-        app.get '/recipes/:id', &show
-        app.get '/recipes/:id/ingredients', &ingredients
+        app.get '/api/v1/recipes', &index
+        app.get '/api/v1/recipes/:id', &show
+        app.get '/api/v1/recipes/:id/ingredients', &ingredients
 
       end
     end

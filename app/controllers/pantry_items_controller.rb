@@ -18,8 +18,8 @@ module Pantry
           p.to_json
         end
 
-        app.get '/pantryitems', &index
-        app.get '/pantryitems/:id', &show
+        app.get '/api/v1/pantryitems', &index
+        app.get '/api/v1/pantryitems/:id', &show
 
       end
     end

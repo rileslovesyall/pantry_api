@@ -18,6 +18,11 @@ ActiveRecord::Base.establish_connection dbconfig["#{settings.environment}"]
 
 Dir["./app/**/*.rb"].each { |f| require f }
 
+configure :development do
+  use BetterErrors::Middleware
+  BetterErrors.application_root = __dir__
+end
+
 class PantryApp < Sinatra::Base
 
   set :root, File.dirname(__FILE__)

@@ -18,8 +18,8 @@ module Pantry
           p.to_json
         end
 
-        app.get '/users', &test_page
-        app.get '/users/:id/pantry', &user_pantry
+        app.get '/api/v1/users', &test_page
+        app.get '/api/v1/users/:id/pantry', &user_pantry
 
       end
     end
