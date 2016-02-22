@@ -51,7 +51,7 @@ important that the UX is very smooth and intuitive.
 **Trello Board**  
 *Flesh out the feature set that you created in the conceptual delivery to get started 
 with your Trello board*
-https://trello.com/b/JmAvG1AS/what-s-in-my-pantry
+https://trello.com/b/JmAvG1AS/pantry
 
 **Optional**  
 *Technology selections*
