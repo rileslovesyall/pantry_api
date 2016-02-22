@@ -33,6 +33,7 @@ class PantryApp < Sinatra::Base
   register Pantry::Controller::Users
   register Pantry::Controller::PantryItems
   register Pantry::Controller::Recipes
+  register Pantry::Controller::Authentication
 
   get "/" do
     "Here's some stuff"
