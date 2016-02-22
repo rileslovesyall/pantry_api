@@ -5,11 +5,11 @@ users = [
 ]
 
 pantry_items = [
-  {name: "Applesauce", description: "Just like mama used to make.", quantity: 3, user_id: 1},
-  {name: "Cucumber Pickles", description: "Dill.", quantity: 2, user_id: 1},
-  {name: "Tomato Soup", description: "Get dat grilled cheese on.", quantity: 4, user_id: 1},
-  {name: "Old Fashioned Pickes", quantity: 45, user_id: 2},
-  {name: "Pickled Asparagus", quantity: 15, user_id: 2}
+  {name: "Applesauce", description: "Just like mama used to make.", quantity: 3, user_id: 1, expiration_date: (DateTime.now + 3)},
+  {name: "Cucumber Pickles", description: "Dill.", quantity: 2, user_id: 1, expiration_date: (DateTime.now + 2)},
+  {name: "Tomato Soup", description: "Get dat grilled cheese on.", quantity: 4, user_id: 1, expiration_date: (DateTime.now + 6)},
+  {name: "Old Fashioned Pickes", quantity: 45, user_id: 2, expiration_date: (DateTime.now + 3)},
+  {name: "Pickled Asparagus", quantity: 15, user_id: 2, expiration_date: (DateTime.now + 3)}
 ]
 
 categories = [
