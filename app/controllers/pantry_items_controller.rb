@@ -14,9 +14,10 @@ module Pantry
 
         show = lambda do
           p = PantryItem.find(params[:id])
-
+          response.headers['Access-Control-Allow-Origin'] = '*' 
           content_type :json
-          p.to_json
+          body 
+            {pantryitem: p}.to_json
         end
 
         app.get '/api/v1/pantryitems', &index
