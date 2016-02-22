@@ -38,7 +38,7 @@ between canners. (Long term view.)
 *How do those characteristics factor into project/app/idea?*
 
 My main target user is anyone who cans food at home. They are often middle-aged to older 
-folks, which does often mean that they are not as technoligically inclined, though that's 
+folks, which does often mean that they are often not as technoligically inclined, though that's 
 all the more reason to have something easier than a complicated Excel spreadsheet for them 
 to play with. However, there has been a resurgence in home preservation among younger people, 
 so an app would appeal to them. Also, something that can help bolster the home canning 
