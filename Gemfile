@@ -20,6 +20,7 @@ gem 'omniauth-jwt'
 gem 'omniauth-twitter'
 gem 'bcrypt', '~> 3.1.2'
 gem 'jwt'
+gem 'warden'
 
 group :test do
   gem 'rspec'
