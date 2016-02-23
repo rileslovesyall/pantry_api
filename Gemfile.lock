@@ -118,6 +118,7 @@ DEPENDENCIES
   factory_girl (~> 4.0)
   faker
   json
+  jwt
   omniauth
   omniauth-jwt
   omniauth-twitter
