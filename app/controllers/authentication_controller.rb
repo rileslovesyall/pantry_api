@@ -18,8 +18,14 @@ module Pantry
           response.headers['Access-Control-Allow-Origin'] = '*'
           user = User.find_by(email: params[:email])
           if user && user.authenticate(params[:password])
-              api_token = SecureRandom.urlsafe_base64
-              return user.to_json
+              token = SecureRandom.urlsafe_base64
+              user.api_token = token
+              response = {
+                name: user.name,
+                email: user.email,
+                token: user.api_token
+              }
+              return response.to_json
           else
             return {errors: "Incorrect email or password."}.to_json
           end
