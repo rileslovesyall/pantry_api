@@ -1,7 +1,7 @@
 users = [
-  {name: "Rick", email: "thewaythenewsgoes@tinyrick.com"},
-  {name: "Morty", email: "wubalubadubdub@gmail.com"},
-  {name: "Bird Person", email: "serious@flat.com"}
+  {name: "Rick", email: "rick@tinyrick.com", password: "newsgoes", password_confirmation: "newsgoes"},
+  {name: "Morty", email: "morty@gmail.com", password: "morty1", password_confirmation: "morty1"},
+  {name: "Bird Person", email: "bird@person.com", password: "monotone", password_confirmation: "monotone"}
 ]
 
 pantry_items = [
