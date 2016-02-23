@@ -1,7 +1,9 @@
 module Pantry
   module Controller
     module Authentication
+      # TODO remove pry
       require 'pry'
+      require 'jwt'
 
       def self.registered(app)
 

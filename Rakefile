@@ -4,6 +4,7 @@ require 'rspec/core/rake_task'
 require 'fileutils'
 require 'logger'
 require 'sinatra/activerecord/rake'
+require 'rake/notes/rake_task'
 
 task :default do
   puts "Available tasks:"
