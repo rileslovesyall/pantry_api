@@ -14,6 +14,12 @@ gem 'activemodel'
 # to send json
 gem 'json'
 
+# for authentication
+gem 'omniauth'
+gem 'omniauth-jwt'
+gem 'omniauth-twitter'
+gem 'bcrypt', '~> 3.1.2'
+
 group :test do
   gem 'rspec'
   gem 'simplecov'
@@ -27,4 +33,5 @@ group :development, :test do
   gem 'sqlite3'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'pry'
 end
