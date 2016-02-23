@@ -16,11 +16,13 @@ gem 'json'
 
 # for authentication
 gem 'omniauth'
-gem 'omniauth-jwt'
+# gem 'omniauth-jwt'
 gem 'omniauth-twitter'
 gem 'bcrypt', '~> 3.1.2'
 gem 'jwt'
 gem 'warden'
+# gem 'warden-jwt'
+# gem 'sinatra-warden'
 
 group :test do
   gem 'rspec'

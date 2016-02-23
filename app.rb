@@ -25,6 +25,7 @@ class PantryApp < Sinatra::Base
   enable :sessions
 
   register Sinatra::ActiveRecordExtension
+  # register Sinatra::Warden
 
   register Pantry::Controller::Users
   register Pantry::Controller::PantryItems
@@ -72,18 +73,14 @@ class PantryApp < Sinatra::Base
   Warden::Strategies.add(:access_token) do
       def valid?
           # Validate that the access token is properly formatted.
-          # Currently only checks that it's actually a string.
           request.env["HTTP_ACCESS_TOKEN"].is_a?(String)
       end
 
       def authenticate!
-          # Authorize request if HTTP_ACCESS_TOKEN matches 'youhavenoprivacyandnosecrets'
-          # Your actual access token should be generated using one of the several great libraries
-          # for this purpose and stored in a database, this is just to show how Warden should be
-          # set up.
-          access_granted = (request.env["HTTP_ACCESS_TOKEN"] == 'youhavenoprivacyandnosecrets')
-          !access_granted ? fail!("Could not log in") : success!(access_granted)
+        access_granted = User.find_by(api_token: request.env["HTTP_ACCESS_TOKEN"])
+        !access_granted ? fail!("Could not log in") : success!(access_granted)
       end
+
   end
 
 end
