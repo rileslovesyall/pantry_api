@@ -40,7 +40,7 @@ module Pantry
           @p = PantryItem.find(params[:id])
           if @curr_user != @p.user
             response = {
-              errors: "You are not authorized to view this page."
+              errors: "You are not authorized to make this request."
             }
             return response.to_json
           else
@@ -62,7 +62,22 @@ module Pantry
         end
 
         delete = lambda do
-          # TODO write pantryitem delete method
+          @p = PantryItem.find(params[:id])
+          if @curr_user != @p.user
+            response = {
+              errors: "You are not authorized to make this request."
+            }
+            return response.to_json
+          else
+            @p.delete
+            @p.pantry_item_categories.each do |pic|
+              pic.delete
+            end
+            response = {
+              message: "Your item has been deleted."
+            }
+            return response.to_json
+          end
         end
 
         app.get '/api/v1/pantryitems', &index
