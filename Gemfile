@@ -24,6 +24,9 @@ gem 'warden'
 # gem 'warden-jwt'
 # gem 'sinatra-warden'
 
+# For strong params
+gem 'sinatra-strong-params'
+
 group :test do
   gem 'rspec'
   gem 'simplecov'

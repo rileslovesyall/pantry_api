@@ -7,6 +7,7 @@ require 'sinatra/base'
 require 'sinatra/contrib/all'
 require 'json'
 require 'warden'
+require 'sinatra/strong-params'
 
 Bundler.setup
 Bundler.require(:default, ENV["RACK_ENV"].to_sym)
@@ -27,10 +28,10 @@ class PantryApp < Sinatra::Base
   register Sinatra::ActiveRecordExtension
   # register Sinatra::Warden
 
-  # configure :development do
-  #   use BetterErrors::Middleware
-  #   BetterErrors.application_root = __dir__
-  # end
+  configure :development do
+    use BetterErrors::Middleware
+    BetterErrors.application_root = __dir__
+  end
 
   # Configure Warden
   use Warden::Manager do |config|

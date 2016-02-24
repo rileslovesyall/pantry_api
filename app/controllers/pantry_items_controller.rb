@@ -31,14 +31,26 @@ module Pantry
           body 
             {message: "Your item has been created",  status: 200}.to_json
           else
-            # TODO return status codes here
-            {errors: "Something went wrong, please try again.", params: params["name"]}.to_json
+            # TODO update status codes here
+            {errors: "Something went wrong, please try again."}.to_json
           end
 
         end
 
         update = lambda do
           # TODO write pantryitem update method
+          # params.each do |key, value|
+          #   p.key = value
+          # end
+          # if p.save
+          #   content_type :json
+          # body 
+          #   {message: "Your item has been updated!",  status: 200}.to_json
+          # else
+          #   # TODO update status codes here
+          #   {errors: "Something went wrong, please try again."}.to_json
+          # end
+          return params.to_json
         end
 
         delete = lambda do
