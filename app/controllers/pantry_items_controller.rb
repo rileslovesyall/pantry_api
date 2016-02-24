@@ -36,19 +36,29 @@ module Pantry
         end
 
         update = lambda do
-          # TODO write pantryitem update method
-          # params.each do |key, value|
-          #   p.key = value
-          # end
-          # if p.save
-          #   content_type :json
-          # body 
-          #   {message: "Your item has been updated!",  status: 200}.to_json
-          # else
-          #   # TODO update status codes here
-          #   {errors: "Something went wrong, please try again."}.to_json
-          # end
-          return params.to_json
+          # TODO remove redundant code once I test this for patch
+          @p = PantryItem.find(params[:id])
+          if @curr_user != @p.user
+            response = {
+              errors: "You are not authorized to view this page."
+            }
+            return response.to_json
+          else
+            @p.name = params["name"] if params["name"]
+            @p.description = params["description"] if params["description"]
+            @p.quantity = params["quantity"] if params["quantity"]
+            if @p.save
+              response = {
+                message: "Your item as been updated."
+              }
+              return response.to_json
+            else
+              response = {
+                errors: "There was a mistake. Please try again."
+              }
+              return response.to_json
+            end
+          end
         end
 
         delete = lambda do

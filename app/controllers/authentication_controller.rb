@@ -1,10 +1,6 @@
 module Pantry
   module Controller
     module Authentication
-      # TODO remove pry
-      require 'securerandom'
-      require 'pry'
-      require 'jwt'
 
       def self.registered(app)
 
@@ -28,6 +24,14 @@ module Pantry
 
         token_refresh = lambda do
           # TO DO write token refresh method
+          token = 'pantry' + SecureRandom.urlsafe_base64
+          @curr_user.api_token = token
+          @curr_user.save
+          response = {
+            status: success,
+            token: @curr_user.api_token
+          }
+          return response.to_json
         end
 
         # app.post '/api/v1/token-auth', &create
