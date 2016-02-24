@@ -1,8 +1,6 @@
 module Pantry
   module Controller
     module PantryItems
-      require 'pry'
-      # PRY
 
       def self.registered(app)
 

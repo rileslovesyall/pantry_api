@@ -1,13 +1,16 @@
   ENV["RACK_ENV"] ||= "development"
 
 require 'bundler'
-require 'erb'
 require 'active_record'
 require 'sinatra/base'
 require 'sinatra/contrib/all'
 require 'json'
 require 'warden'
 require 'sinatra/strong-params'
+
+require 'pry'
+# PRY
+
 
 Bundler.setup
 Bundler.require(:default, ENV["RACK_ENV"].to_sym)
