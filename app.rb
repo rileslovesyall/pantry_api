@@ -27,16 +27,17 @@ class PantryApp < Sinatra::Base
   register Sinatra::ActiveRecordExtension
   # register Sinatra::Warden
 
-  configure :development do
-    use BetterErrors::Middleware
-    BetterErrors.application_root = __dir__
-  end
+  # configure :development do
+  #   use BetterErrors::Middleware
+  #   BetterErrors.application_root = __dir__
+  # end
 
   # Configure Warden
   use Warden::Manager do |config|
       config.scope_defaults :default,
       # Set your authorization strategy
       strategies: [:access_token],
+
       # Route to redirect to when warden.authenticate! returns a false answer.
       action: '/unauthenticated'
       config.failure_app = self
@@ -50,7 +51,7 @@ class PantryApp < Sinatra::Base
   Warden::Strategies.add(:access_token) do
       def valid?
           # Validate that the access token is properly formatted.
-          request.env["HTTP_ACCESS_TOKEN"].is_a?(String)
+          request.env["HTTP_ACCESS_TOKEN"].slice(0..5) == 'pantry'
       end
 
       def authenticate!
@@ -63,18 +64,20 @@ class PantryApp < Sinatra::Base
   # ROUTES
 
   before do
-    response.headers['Access-Control-Allow-Origin'] = '*' 
+    response.headers['Access-Control-Allow-Origin'] = '*'
   end
 
   before '/*'  do
-    unless params[:splat] == 'token'
-      env['warden'].authenticate!(:access_token)
+    unless params[:splat] == 'token' || params[:splat] == 'unauthenticated'
+      if env['warden'].authenticate!(:access_token)
+        @curr_user = env['warden'].authenticate!(:access_token)
+      end
     end
   end
 
   before '/pantryitems/*' do
     unless request.post?
-      p = PantryItem.find(params[:id])
+      @p = PantryItem.find(params[:id])
     end
   end
 
@@ -84,7 +87,7 @@ class PantryApp < Sinatra::Base
   register Pantry::Controller::Authentication
 
   get "/" do
-    "maybe put some API docs here"
+    return @curr_user.to_json
   end
 
   # This is the route that unauthorized requests gets redirected to.
