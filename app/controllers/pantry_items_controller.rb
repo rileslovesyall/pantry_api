@@ -24,7 +24,6 @@ module Pantry
             name: params[:name],
             description: params[:description]
             })
-
         end
 
         update = lambda do

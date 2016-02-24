@@ -66,6 +66,12 @@ class PantryApp < Sinatra::Base
     response.headers['Access-Control-Allow-Origin'] = '*' 
   end
 
+  before '/*'  do
+    unless params[:splat] == 'token'
+      env['warden'].authenticate!(:access_token)
+    end
+  end
+
   before '/pantryitems/*' do
     unless request.post?
       p = PantryItem.find(params[:id])
@@ -78,15 +84,7 @@ class PantryApp < Sinatra::Base
   register Pantry::Controller::Authentication
 
   get "/" do
-    "here's some stuff"
-  end
-
-  # This is the protected route, without the proper access token you'll be redirected.
-  get '/protected' do
-      env['warden'].authenticate!(:access_token)
-      
-      content_type :json
-      json({ message: "This is an authenticated request!" })
+    "maybe put some API docs here"
   end
 
   # This is the route that unauthorized requests gets redirected to.
