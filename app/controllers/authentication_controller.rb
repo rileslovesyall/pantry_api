@@ -8,13 +8,7 @@ module Pantry
 
       def self.registered(app)
 
-        create = lambda do
-          fdsfsd
-          # write some code to see if user exists
-          # return user token if it exists
-        end
-
-        authenticate_user = lambda do
+        user_token = lambda do
           response.headers['Access-Control-Allow-Origin'] = '*'
           user = User.find_by(email: params[:email])
           if user && user.authenticate(params[:password])
@@ -36,8 +30,8 @@ module Pantry
           # TO DO write token refresh method
         end
 
-        app.post '/api/v1/token-auth', &create
-        app.post '/api/v1/user_auth', &authenticate_user
+        # app.post '/api/v1/token-auth', &create
+        app.post '/api/v1/token', &user_token
         app.post '/api/v1/token-refresh/', &token_refresh
 
       end
