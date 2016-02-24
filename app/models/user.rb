@@ -8,4 +8,8 @@ class User < ActiveRecord::Base
   validates_presence_of :email
   validates_uniqueness_of :email
 
+  def add_uid
+    # TODO add code here
+  end
+
 end

@@ -5,4 +5,12 @@ class PantryItem < ActiveRecord::Base
 
   validates_presence_of :name, :quantity, :user_id
 
+  def set_expiration_email
+    # TODO add code here
+  end
+
+  def self.public
+    return self.where(public: true)
+  end
+
 end
