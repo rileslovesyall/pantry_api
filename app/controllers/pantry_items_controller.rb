@@ -36,8 +36,6 @@ module Pantry
         end
 
         update = lambda do
-          # TODO remove redundant code once I test this for patch
-          @p = PantryItem.find(params[:id])
           if @curr_user != @p.user
             response = {
               errors: "You are not authorized to make this request."
@@ -62,7 +60,6 @@ module Pantry
         end
 
         delete = lambda do
-          @p = PantryItem.find(params[:id])
           if @curr_user != @p.user
             response = {
               errors: "You are not authorized to make this request."

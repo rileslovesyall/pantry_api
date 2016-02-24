@@ -33,6 +33,8 @@ class PantryApp < Sinatra::Base
   register Sinatra::ActiveRecordExtension
   # register Sinatra::Warden
 
+  # MIDDLEWARE
+
   configure :development do
     use BetterErrors::Middleware
     BetterErrors.application_root = __dir__
@@ -67,7 +69,7 @@ class PantryApp < Sinatra::Base
 
   end
 
-  # ROUTES
+  # ROUTES ON ROUTES ON ROUTES
 
   before do
     response.headers['Access-Control-Allow-Origin'] = '*'
@@ -81,10 +83,8 @@ class PantryApp < Sinatra::Base
     end
   end
 
-  before '/pantryitems/*' do
-    unless request.post?
+  before '/api/v1/pantryitems/:id' do
       @p = PantryItem.find(params[:id])
-    end
   end
 
   register Pantry::Controller::Users
