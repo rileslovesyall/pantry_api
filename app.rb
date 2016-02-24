@@ -27,29 +27,6 @@ class PantryApp < Sinatra::Base
   register Sinatra::ActiveRecordExtension
   # register Sinatra::Warden
 
-  register Pantry::Controller::Users
-  register Pantry::Controller::PantryItems
-  register Pantry::Controller::Recipes
-  register Pantry::Controller::Authentication
-
-  get "/" do
-    "here's some stuff"
-  end
-
-  # This is the protected route, without the proper access token you'll be redirected.
-  get '/protected' do
-      env['warden'].authenticate!(:access_token)
-      
-      content_type :json
-      json({ message: "This is an authenticated request!" })
-  end
-
-  # This is the route that unauthorized requests gets redirected to.
-  post '/unauthenticated' do
-      content_type :json
-      json({ message: "Sorry, this request can not be authenticated. Try again." })
-  end
-
   configure :development do
     use BetterErrors::Middleware
     BetterErrors.application_root = __dir__
@@ -81,6 +58,41 @@ class PantryApp < Sinatra::Base
         !access_granted ? fail!("Could not log in") : success!(access_granted)
       end
 
+  end
+
+  # ROUTES
+
+  before do
+    response.headers['Access-Control-Allow-Origin'] = '*' 
+  end
+
+  before '/pantryitems/*' do
+    unless request.post?
+      p = PantryItem.find(params[:id])
+    end
+  end
+
+  register Pantry::Controller::Users
+  register Pantry::Controller::PantryItems
+  register Pantry::Controller::Recipes
+  register Pantry::Controller::Authentication
+
+  get "/" do
+    "here's some stuff"
+  end
+
+  # This is the protected route, without the proper access token you'll be redirected.
+  get '/protected' do
+      env['warden'].authenticate!(:access_token)
+      
+      content_type :json
+      json({ message: "This is an authenticated request!" })
+  end
+
+  # This is the route that unauthorized requests gets redirected to.
+  post '/unauthenticated' do
+      content_type :json
+      json({ message: "Sorry, this request can not be authenticated. Try again." })
   end
 
 end

@@ -13,15 +13,33 @@ module Pantry
         end
 
         show = lambda do
-          p = PantryItem.find(params[:id])
           response.headers['Access-Control-Allow-Origin'] = '*' 
           content_type :json
           body 
             {pantryitem: p}.to_json
         end
 
+        create = lambda do
+          PantryItem.create({
+            name: params[:name],
+            description: params[:description]
+            })
+
+        end
+
+        update = lambda do
+          
+        end
+
+        delete = lambda do
+          
+        end
+
         app.get '/api/v1/pantryitems', &index
         app.get '/api/v1/pantryitems/:id', &show
+        app.post '/api/v1/pantryitems/:id', &create
+        app.patch '/api/v1/pantryitems/:id', &update
+        app.delete '/api/v1/pantryitems/:id', &delete
 
       end
     end
