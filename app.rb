@@ -7,6 +7,8 @@ require 'sinatra/contrib/all'
 require 'json'
 require 'warden'
 require 'sinatra/strong-params'
+require 'securerandom'
+require 'jwt'
 
 require 'pry'
 # PRY
