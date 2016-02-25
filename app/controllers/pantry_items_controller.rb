@@ -4,6 +4,15 @@ module Pantry
 
       def self.registered(app)
 
+        # NOT WORKING
+        # 
+        # def requester_must_own_resource
+        #   if @curr_user != @p.user
+        #     status 401
+        #     return { errors: "You are not authorized to make this request." }
+        #   end
+        # end
+
         index = lambda do
           p = PantryItem.all
           content_type :json
@@ -73,6 +82,33 @@ module Pantry
           return response.to_json
         end
 
+        consume = lambda do
+          if @curr_user != @p.user
+            status 401
+            return { errors: "You are not authorized to make this request." }
+          end
+          begin
+            PantryItemUser.create({
+              user_id: @curr_user.id,
+              pantry_item_id: @p.id,
+              quantity: params["quantity"],
+              action: 'consume'
+              })
+            # binding.pry
+          rescue
+            status 400
+            return {
+              error: "You don't have any of this item to consume.",
+              }.to_json
+          end
+          status 200
+          @p.reload
+          return {
+            message: "Your consumption was successful.",
+            new_quantity: @p.quantity
+          }.to_json
+        end
+
         base = '/api/v1/pantryitems'
 
         app.get base, &index
@@ -82,16 +118,7 @@ module Pantry
           allows: [:name, :description, :quantity, :consumed_at, :consumed, :expiration_date, :show_public], 
           &update
         app.delete base + '/:id', &delete
-
-
-        private
-
-        def requester_must_own_resource
-          if @curr_user != @p.user
-            status 401
-            return { errors: "You are not authorized to make this request." }
-          end
-        end
+        app.post base + '/:id/consume', &consume
 
       end
     end

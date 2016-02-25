@@ -6,7 +6,7 @@ class PantryItem < ActiveRecord::Base
 
   validates_presence_of :name, :quantity
 
-  after_initialize :create_pantry_item_user
+  after_create :create_pantry_item_user
 
   def set_expiration_email
     # TODO add code here
