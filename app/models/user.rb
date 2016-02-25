@@ -12,4 +12,8 @@ class User < ActiveRecord::Base
     # TODO add code here
   end
 
+  def public_pantry
+    self.pantry_items.where(public: true)
+  end
+
 end

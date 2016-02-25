@@ -42,9 +42,7 @@ module Pantry
             }
             return response.to_json
           else
-            @p.name = params["name"] if params["name"]
-            @p.description = params["description"] if params["description"]
-            @p.quantity = params["quantity"] if params["quantity"]
+            @p.update(params)
             if @p.save
               response = {
                 message: "Your item as been updated."
@@ -77,10 +75,12 @@ module Pantry
           end
         end
 
+        # binding.pry
+
         app.get '/api/v1/pantryitems', &index
         app.get '/api/v1/pantryitems/:id', &show
         app.post '/api/v1/pantryitems', &create
-        app.patch '/api/v1/pantryitems/:id', &update
+        app.patch '/api/v1/pantryitems/:id', allows: [:name, :description, :quantity], &update
         app.delete '/api/v1/pantryitems/:id', &delete
 
       end

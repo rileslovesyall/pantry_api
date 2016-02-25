@@ -25,20 +25,22 @@ ActiveRecord::Base.establish_connection dbconfig["#{settings.environment}"]
 
 Dir["./app/**/*.rb"].each { |f| require f }
 
+
 class PantryApp < Sinatra::Base
 
   set :root, File.dirname(__FILE__)
   enable :sessions
 
   register Sinatra::ActiveRecordExtension
+  register Sinatra::StrongParams
   # register Sinatra::Warden
 
   # MIDDLEWARE
 
-  configure :development do
-    use BetterErrors::Middleware
-    BetterErrors.application_root = __dir__
-  end
+  # configure :development do
+  #   use BetterErrors::Middleware
+  #   BetterErrors.application_root = __dir__
+  # end
 
   # Configure Warden
   use Warden::Manager do |config|
@@ -59,11 +61,15 @@ class PantryApp < Sinatra::Base
   Warden::Strategies.add(:access_token) do
       def valid?
           # Validate that the access token is properly formatted.
-          request.env["HTTP_ACCESS_TOKEN"].slice(0..5) == 'pantry'
+          if !request.env["HTTP_AUTHORIZATION"].nil?
+            request.env["HTTP_AUTHORIZATION"].slice(0..5) == 'pantry'
+          else
+            return false
+          end
       end
 
       def authenticate!
-        access_granted = User.find_by(api_token: request.env["HTTP_ACCESS_TOKEN"])
+        access_granted = User.find_by(api_token: request.env["HTTP_AUTHORIZATION"])
         !access_granted ? fail!("Could not log in") : success!(access_granted)
       end
 
@@ -75,11 +81,11 @@ class PantryApp < Sinatra::Base
     response.headers['Access-Control-Allow-Origin'] = '*'
   end
 
-  before '/*'  do
+  before '/api/v1/*'  do
     unless params[:splat] == 'token' || params[:splat] == 'unauthenticated'
-      if env['warden'].authenticate!(:access_token)
+      # if env['warden'].authenticate!(:access_token)
         @curr_user = env['warden'].authenticate!(:access_token)
-      end
+      # end
     end
   end
 

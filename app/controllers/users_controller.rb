@@ -11,15 +11,15 @@ module Pantry
           user.to_json
         end
 
-        user_pantry = lambda do
-          p = User.find(params[:id]).pantry_items
+        public_pantry = lambda do
+          p = User.find(params[:id]).public_pantry
 
           content_type :json
           p.to_json
         end
 
         app.get '/api/v1/users', &test_page
-        app.get '/api/v1/users/:id/pantry', &user_pantry
+        app.get '/api/v1/users/:id/public_pantry', &public_pantry
 
       end
     end
