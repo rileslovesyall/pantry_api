@@ -4,11 +4,20 @@ module Pantry
 
       def self.registered(app)
 
-        test_page = lambda do
-          user = User.find(1)
+        show = lambda do
+          return @u.to_json(except: [:password_digest])
+        end
 
-          content_type :json
-          user.to_json
+        create = lambda do
+          # TODO write method
+        end
+
+        update = lambda do
+          # TODO write method
+        end
+
+        delete = lambda do
+          # TODO write method
         end
 
         public_pantry = lambda do
@@ -24,9 +33,13 @@ module Pantry
         end
 
         prefix = '/api/v1/users'
-        app.get prefix, &test_page
+
         app.get prefix + '/:id/public_pantry', &public_pantry
         app.get prefix + '/:id/pantry', &pantry
+        app.get prefix + '/:id', &show
+        app.post prefix, &create
+        app.patch prefix + '/:id', &update
+        app.delete prefix + ':/id', &delete
 
       end
     end

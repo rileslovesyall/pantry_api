@@ -89,17 +89,36 @@ class PantryApp < Sinatra::Base
     end
   end
 
+  register Pantry::Controller::Recipes
+  register Pantry::Controller::Authentication
+
   before '/api/v1/pantryitems/:id' do
       @p = PantryItem.find(params[:id])
   end
 
-  register Pantry::Controller::Users
   register Pantry::Controller::PantryItems
-  register Pantry::Controller::Recipes
-  register Pantry::Controller::Authentication
 
+  before '/api/v1/users/:id' do
+    @u = User.find(params[:id])
+  end
+
+  before '/api/v1/users/:id' do
+    unless params[:splat] == 'public_pantry'
+      if @curr_user.id != params[:id]
+        response = {
+          errors: "You are not authorized to make this request."
+        }
+        return response.to_json
+      end
+    end
+  end
+
+  register Pantry::Controller::Users
+
+  # dummy index route
   get "/" do
     return @curr_user.to_json
+    # turn into API docs?
   end
 
   # This is the route that unauthorized requests gets redirected to.
