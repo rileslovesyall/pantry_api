@@ -1,4 +1,4 @@
-  ENV["RACK_ENV"] ||= "development"
+ENV["RACK_ENV"] ||= "development"
 
 require 'bundler'
 require 'active_record'
@@ -96,6 +96,10 @@ class PantryApp < Sinatra::Base
 
   before '/api/v1/pantryitems/:id' do
       @p = PantryItem.find(params[:id])
+  end
+
+  error RuntimeError do
+    "You are not authorized to make this request."
   end
 
   register Pantry::Controller::PantryItems

@@ -5,14 +5,23 @@ module Pantry
       def self.registered(app)
 
         index = lambda do
-          p = PantryItem.all
-          content_type :json
-          status 200
-          body 
-            {pantryitems: p}.to_json
+          if @curr_user
+            status 400
+            return {errors: "Something went wrong, please try again."}.to_json
+          end
+          # else
+            p = PantryItem.all
+            content_type :json
+            status 200
+            body 
+              {pantryitems: p}.to_json
+          # end
         end
 
         show = lambda do
+          if !@p.show_public
+            check_if_requester_owns_resource
+          end
           content_type :json
           status 200
           body 
@@ -40,48 +49,34 @@ module Pantry
         end
 
         update = lambda do
-          if @curr_user != @p.user
+          requester_must_own_resource
+          @p.update(params)
+          if @p.save
             response = {
-              errors: "You are not authorized to make this request."
+              message: "Your item as been updated.",
+              pantryitem: @p
             }
-            status 401
             body response.to_json
           else
-            @p.update(params)
-            if @p.save
-              response = {
-                message: "Your item as been updated.",
-                pantryitem: @p
-              }
-              body response.to_json
-            else
-              response = {
-                errors: "There was a mistake. Please try again."
-              }
-              status 400
-              body response.to_json
-            end
+            response = {
+              errors: "There was a mistake. Please try again."
+            }
+            status 400
+            body response.to_json
           end
         end
 
         delete = lambda do
-          if @curr_user != @p.user
-            response = {
-              errors: "You are not authorized to make this request."
-            }
-            status 401
-            body response.to_json
-          else
-            @p.delete
-            @p.pantry_item_categories.each do |pic|
-              pic.delete
-            end
-            status 200
-            response = {
-              message: "Your item has been deleted."
-            }
-            return response.to_json
+          requester_must_own_resource
+          @p.delete
+          @p.pantry_item_categories.each do |pic|
+            pic.delete
           end
+          status 200
+          response = {
+            message: "Your item has been deleted."
+          }
+          return response.to_json
         end
 
         base = '/api/v1/pantryitems'
@@ -93,6 +88,16 @@ module Pantry
           allows: [:name, :description, :quantity, :consumed_at, :consumed, :expiration_date, :show_public], 
           &update
         app.delete base + '/:id', &delete
+
+
+        private
+
+        def requester_must_own_resource
+          if @curr_user != @p.user
+            status 401
+            return { errors: "You are not authorized to make this request." }
+          end
+        end
 
       end
     end
