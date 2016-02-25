@@ -4,7 +4,9 @@ require 'factory_girl'
 require 'rack/test'
 
 # TODO: Make sure this is covering all files
-SimpleCov.start 
+SimpleCov.start do
+  add_filter "/spec/"
+end
 
 require File.expand_path(File.dirname(__FILE__) + "/../app.rb")
 
