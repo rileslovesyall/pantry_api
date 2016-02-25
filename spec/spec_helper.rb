@@ -1,11 +1,13 @@
 ENV['RACK_ENV'] = "test"
-require File.expand_path(File.dirname(__FILE__) + "/../app.rb")
 require 'simplecov'
 require 'factory_girl'
 require 'rack/test'
 
 # TODO: Make sure this is covering all files
-SimpleCov.start
+SimpleCov.start 
+
+require File.expand_path(File.dirname(__FILE__) + "/../app.rb")
+
 
 RSpec.configure do |config|
 

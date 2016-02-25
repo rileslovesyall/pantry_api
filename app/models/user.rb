@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   include BCrypt  
   has_many :pantry_items
   has_many :recipes
+  has_many :pantry_item_users
 
   has_secure_password
 
@@ -14,7 +15,7 @@ class User < ActiveRecord::Base
   end
 
   def public_pantry
-    self.pantry_items.where(show_public: true, consumed: false)
+    self.pantry_items.where('show_public = true AND quantity >= 0')
   end
 
   def private_pantry
