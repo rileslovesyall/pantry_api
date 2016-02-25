@@ -7,21 +7,18 @@ require 'sinatra/contrib/all'
 require 'json'
 require 'warden'
 require 'sinatra/strong-params'
-require 'jwt'
-
+# require 'jwt'
 require 'pry'
-# PRY
 
 
 Bundler.setup
 Bundler.require(:default, ENV["RACK_ENV"].to_sym)
 
-# Database
+# DATABASE CONFIG
 dbconfig = YAML.load(File.read('./config/database.yml'))
 ActiveRecord::Base.establish_connection dbconfig["#{settings.environment}"]
 
-# Require all app files
-
+# REQUIRE ALL APP FILES
 Dir["./app/**/*.rb"].each { |f| require f }
 
 
@@ -30,23 +27,29 @@ class PantryApp < Sinatra::Base
   set :root, File.dirname(__FILE__)
   enable :sessions
 
+  #
+  # HELPFUL EXTRA STUFF
+  #
+
   register Sinatra::ActiveRecordExtension
   register Sinatra::StrongParams
-  # register Sinatra::Warden
 
+  #
   # MIDDLEWARE
+  #
 
   configure :development do
-    # set :show_exceptions, :after_handler
-
     use BetterErrors::Middleware
     BetterErrors.application_root = __dir__
   end
 
-  # Configure Warden
+  #
+  # WARDEN MIDDLEWARE
+  #
+
   use Warden::Manager do |config|
       config.scope_defaults :default,
-      # Set your authorization strategy
+      # set strategies
       strategies: [:access_token],
 
       # Route to redirect to when warden.authenticate! returns a false answer.
@@ -58,7 +61,6 @@ class PantryApp < Sinatra::Base
       env['REQUEST_METHOD'] = 'POST'
   end
 
-  # Implement your Warden stratagey to validate and authorize the access_token.
   Warden::Strategies.add(:access_token) do
       def valid?
           # Validate that the access token is properly formatted.
@@ -76,7 +78,9 @@ class PantryApp < Sinatra::Base
 
   end
 
+  #
   # ROUTES ON ROUTES ON ROUTES
+  #
 
   before do
     response.headers['Access-Control-Allow-Origin'] = '*'
@@ -126,7 +130,10 @@ class PantryApp < Sinatra::Base
     # turn into API docs?
   end
 
-  # This is the route that unauthorized requests gets redirected to.
+  #
+  # UNAUTHENTICATED WARDEN ROUTE
+  #
+
   post '/unauthenticated' do
       content_type :json
       json({ message: "Sorry, this request can not be authenticated. Try again." })
