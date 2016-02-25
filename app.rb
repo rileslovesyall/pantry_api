@@ -92,7 +92,7 @@ class PantryApp < Sinatra::Base
   end
 
   register Pantry::Controller::Recipes
-  register Pantry::Controller::Auth
+  register Pantry::Controller::Auth 
 
   before '/api/v1/pantryitems/:id' do
       @p = PantryItem.find(params[:id])

@@ -5,9 +5,7 @@ require 'factory_girl'
 require 'rack/test'
 
 # TODO: Make sure this is covering all files
-SimpleCov.start do
-  add_filter '/support/'
-end
+SimpleCov.start
 
 RSpec.configure do |config|
 

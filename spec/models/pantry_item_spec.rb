@@ -10,3 +10,4 @@ RSpec.describe PantryItem, type: :model do
   end
 
 end
+
