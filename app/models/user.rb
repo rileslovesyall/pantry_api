@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
     self.pantry_items.where(show_public: false, consumed: false)
   end
 
-  def consumed_items
+  def consumed_pantry
     self.pantry_items.where(consumed: true)
   end
 
