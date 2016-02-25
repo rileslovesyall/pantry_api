@@ -24,7 +24,7 @@ gem 'warden'
 # gem 'warden-jwt'
 # gem 'sinatra-warden'
 
-# For strong params
+# For dem strong params
 gem 'sinatra-strong-params'
 
 group :test do
