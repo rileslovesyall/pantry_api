@@ -3,7 +3,7 @@ class PantryItem < ActiveRecord::Base
   has_many :pantry_item_categories
   has_many :categories, through: :pantry_item_categories
 
-  validates_presence_of :name, :quantity, :user_id
+  validates_presence_of :name, :quantity
 
   def set_expiration_email
     # TODO add code here
