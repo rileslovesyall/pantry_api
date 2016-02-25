@@ -18,8 +18,15 @@ module Pantry
           p.to_json
         end
 
-        app.get '/api/v1/users', &test_page
-        app.get '/api/v1/users/:id/public_pantry', &public_pantry
+        pantry = lambda do
+          # TODO write method
+          # all pantry items 
+        end
+
+        prefix = '/api/v1/users'
+        app.get prefix, &test_page
+        app.get prefix + '/:id/public_pantry', &public_pantry
+        app.get prefix + '/:id/pantry', &pantry
 
       end
     end

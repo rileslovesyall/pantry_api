@@ -75,13 +75,12 @@ module Pantry
           end
         end
 
-        # binding.pry
-
-        app.get '/api/v1/pantryitems', &index
-        app.get '/api/v1/pantryitems/:id', &show
-        app.post '/api/v1/pantryitems', &create
-        app.patch '/api/v1/pantryitems/:id', allows: [:name, :description, :quantity], &update
-        app.delete '/api/v1/pantryitems/:id', &delete
+        prefix = '/api/v1/pantryitems'
+        app.get prefix, &index
+        app.get prefix+'/:id', &show
+        app.post prefix, &create
+        app.patch prefix+'/:id', allows: [:name, :description, :quantity], &update
+        app.delete prefix+'/:id', &delete
 
       end
     end
