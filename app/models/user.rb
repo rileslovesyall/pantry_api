@@ -13,7 +13,15 @@ class User < ActiveRecord::Base
   end
 
   def public_pantry
-    self.pantry_items.where(public: true)
+    self.pantry_items.where(public: true, consumed: false)
+  end
+
+  def private_pantry
+    self.pantry_items.where(public: false)
+  end
+
+  def method_name
+    
   end
 
 end
