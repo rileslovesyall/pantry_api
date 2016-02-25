@@ -75,13 +75,13 @@ module Pantry
           end
         end
 
-        prefix = '/api/v1/pantryitems'
+        base = '/api/v1/pantryitems'
 
-        app.get prefix, &index
-        app.get prefix + '/:id', &show
-        app.post prefix, &create
-        app.patch prefix + '/:id', allows: [:name, :description, :quantity], &update
-        app.delete prefix + '/:id', &delete
+        app.get base, &index
+        app.get base + '/:id', &show
+        app.post base, &create
+        app.patch base + '/:id', allows: [:name, :description, :quantity], &update
+        app.delete base + '/:id', &delete
 
       end
     end

@@ -32,14 +32,14 @@ module Pantry
           # all pantry items 
         end
 
-        prefix = '/api/v1/users'
+        base = '/api/v1/users'
 
-        app.get prefix + '/:id/public_pantry', &public_pantry
-        app.get prefix + '/:id/pantry', &pantry
-        app.get prefix + '/:id', &show
-        app.post prefix, &create
-        app.patch prefix + '/:id', &update
-        app.delete prefix + ':/id', &delete
+        app.get base + '/:id/public_pantry', &public_pantry
+        app.get base + '/:id/pantry', &pantry
+        app.get base + '/:id', &show
+        app.post base, &create
+        app.patch base + '/:id', &update
+        app.delete base + ':/id', &delete
 
       end
     end
