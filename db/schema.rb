@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20160225191535) do
     t.boolean "public",          default: true
   end
 
-  create_table "pantry_items_users", force: :cascade do |t|
+  create_table "pantry_item_users", force: :cascade do |t|
     t.integer "user_id"
     t.integer "pantry_item_id"
     t.string  "action"

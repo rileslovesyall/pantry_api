@@ -1,4 +1,4 @@
-class PantryItemsUsers < ActiveRecord::Base
+class PantryItemUser < ActiveRecord::Base
   belongs_to :pantry_item
   belongs_to :user
 

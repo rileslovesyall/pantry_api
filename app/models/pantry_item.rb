@@ -6,6 +6,8 @@ class PantryItem < ActiveRecord::Base
 
   validates_presence_of :name, :quantity
 
+  after_initialize :create_pantry_item_user
+
   def set_expiration_email
     # TODO add code here
   end
@@ -14,6 +16,16 @@ class PantryItem < ActiveRecord::Base
     return self.where(show_public: true, consumed: false)
   end
 
+  private
 
+  def create_pantry_item_user
+    p = PantryItemUser.create({
+      pantry_item_id: self.id,
+      user_id: self.user.id,
+      action: 'init',
+      quantity: self.quantity
+      })
+    p.save
+  end
 
 end
