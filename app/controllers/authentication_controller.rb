@@ -14,7 +14,9 @@ module Pantry
               response = {
                 name: user.name,
                 email: user.email,
-                token: user.api_token
+                uid: user.id,
+                token: user.api_token,
+                message: "New API Token has been generated."
               }
               return response.to_json
           else

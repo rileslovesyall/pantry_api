@@ -10,7 +10,9 @@ class PantryItem < ActiveRecord::Base
   end
 
   def self.public
-    return self.where(show_public: true)
+    return self.where(show_public: true, consumed: false)
   end
+
+
 
 end

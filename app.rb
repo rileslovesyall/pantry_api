@@ -37,10 +37,12 @@ class PantryApp < Sinatra::Base
 
   # MIDDLEWARE
 
-  # configure :development do
-  #   use BetterErrors::Middleware
-  #   BetterErrors.application_root = __dir__
-  # end
+  configure :development do
+    # set :show_exceptions, :after_handler
+    
+    use BetterErrors::Middleware
+    BetterErrors.application_root = __dir__
+  end
 
   # Configure Warden
   use Warden::Manager do |config|
