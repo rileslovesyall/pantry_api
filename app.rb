@@ -39,7 +39,7 @@ class PantryApp < Sinatra::Base
 
   configure :development do
     # set :show_exceptions, :after_handler
-    
+
     use BetterErrors::Middleware
     BetterErrors.application_root = __dir__
   end
@@ -92,7 +92,7 @@ class PantryApp < Sinatra::Base
   end
 
   register Pantry::Controller::Recipes
-  register Pantry::Controller::Authentication
+  register Pantry::Controller::Auth
 
   before '/api/v1/pantryitems/:id' do
       @p = PantryItem.find(params[:id])

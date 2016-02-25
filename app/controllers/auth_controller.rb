@@ -1,6 +1,6 @@
 module Pantry
   module Controller
-    module Authentication
+    module Auth
 
       def self.registered(app)
 
