@@ -8,9 +8,7 @@ module Pantry
           response.headers['Access-Control-Allow-Origin'] = '*'
           user = User.find_by(email: params[:email])
           if user && user.authenticate(params[:password])
-              token = 'pantry' + SecureRandom.urlsafe_base64
-              user.api_token = token
-              user.save
+              user.get_token
               response = {
                 name: user.name,
                 email: user.email,

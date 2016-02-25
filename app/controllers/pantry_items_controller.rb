@@ -5,17 +5,11 @@ module Pantry
       def self.registered(app)
 
         index = lambda do
-          if @curr_user
-            status 400
-            return {errors: "Something went wrong, please try again."}.to_json
-          end
-          # else
-            p = PantryItem.all
-            content_type :json
-            status 200
-            body 
-              {pantryitems: p}.to_json
-          # end
+          p = PantryItem.all
+          content_type :json
+          status 200
+          body 
+            {pantryitems: p}.to_json
         end
 
         show = lambda do
@@ -38,8 +32,8 @@ module Pantry
           if p.save
             content_type :json
             status 200
-          body 
-            {message: "Your item has been created"}.to_json
+            body 
+              {message: "Your item has been created"}.to_json
           else
             # TODO update status codes here
             status 400

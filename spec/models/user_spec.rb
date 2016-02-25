@@ -14,6 +14,10 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "#get_token" do
+    
+  end
+
   describe '#pantry' do
     
   end

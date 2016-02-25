@@ -1,3 +1,5 @@
+require 'securerandom'
+
 class User < ActiveRecord::Base
   include BCrypt  
   has_many :pantry_items
@@ -9,6 +11,11 @@ class User < ActiveRecord::Base
   validates_presence_of :email
   validates_uniqueness_of :email
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :on => :create
+
+  def get_token
+    token = 'pantry' + SecureRandom.urlsafe_base64
+    user.api_token = token
+  end
 
   def pantry
     self.pantry_items.where(consumed: false)
