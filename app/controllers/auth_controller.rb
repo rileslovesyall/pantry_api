@@ -16,6 +16,7 @@ module Pantry
                 token: user.api_token,
                 message: "New API Token has been generated."
               }
+              status 200
               return response.to_json
           else
             return {errors: "Incorrect email or password."}.to_json
@@ -23,20 +24,15 @@ module Pantry
         end
 
         token_refresh = lambda do
-          # TO DO write token refresh method
-          token = 'pantry' + SecureRandom.urlsafe_base64
-          @curr_user.api_token = token
-          @curr_user.save
-          response = {
-            status: success,
-            token: @curr_user.api_token
-          }
-          return response.to_json
+          @curr_user.get_token
+
+          status 200
+          return { token: @curr_user.api_token }.to_json
         end
 
-        # app.post '/api/v1/token-auth', &create
-        app.post '/api/v1/token', &user_token
-        app.post '/api/v1/token-refresh/', &token_refresh
+        base = '/api/v1'
+        app.post base + '/token', &user_token
+        app.post base + '/token-refresh/', &token_refresh
 
       end
     end
