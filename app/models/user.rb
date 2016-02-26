@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
 
   def get_token
     token = 'pantry' + SecureRandom.urlsafe_base64
-    user.api_token = token
+    self.api_token = token
   end
 
   def pantry

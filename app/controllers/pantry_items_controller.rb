@@ -18,7 +18,7 @@ module Pantry
 
         show = lambda do
           if !@p.show_public
-            requester_must_own_resource
+            requester_must_own_pantry_item
           end
           content_type :json
           status 200
@@ -47,7 +47,7 @@ module Pantry
         end
 
         update = lambda do
-          requester_must_own_resource
+          requester_must_own_pantry_item
           @p.update(params)
           if @p.save
             return {
@@ -61,7 +61,7 @@ module Pantry
         end
 
         delete = lambda do
-          requester_must_own_resource
+          requester_must_own_pantry_item
           begin
             @p.pantry_item_categories.each do |pic|
               pic.delete
@@ -83,7 +83,7 @@ module Pantry
 
         consume = lambda do
           get_product(params['id'])
-          requester_must_own_resource
+          requester_must_own_pantry_item
           if params['quantity'].nil?
             status 400
             return {error: "You must provide a quantity."}.to_json
@@ -112,7 +112,7 @@ module Pantry
 
         add = lambda do
           get_product(params['id'])
-          requester_must_own_resource
+          requester_must_own_pantry_item
           if params['quantity'].nil?
             status 400
             return {error: "You must provide a quantity."}.to_json

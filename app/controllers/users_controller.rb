@@ -10,6 +10,14 @@ module Pantry
 
         create = lambda do
           # TODO write method
+          u = User.create(params)
+          if u.save
+            status 200
+            return {message: "User has been created."}.to_json
+          else
+            status 400
+            return {error: "There was a problem creating this user."}.to_json
+          end
         end
 
         update = lambda do
@@ -27,7 +35,7 @@ module Pantry
           p.to_json
         end
 
-        pantry = lambda do
+        private_pantry = lambda do
           # TODO write method
           # all pantry items 
         end
@@ -35,10 +43,10 @@ module Pantry
         base = '/api/v1/users'
 
         app.get base + '/:id/public_pantry', &public_pantry
-        app.get base + '/:id/pantry', &pantry
+        app.get base + '/:id/private_pantry', &private_pantry
         app.get base + '/:id', &show
-        app.post base, &create
-        app.patch base + '/:id', &update
+        app.post base, allows: [:email, :password, :password_confirmation, :name] , &create
+        app.post base + '/:id', &update
         app.delete base + ':/id', &delete
 
       end

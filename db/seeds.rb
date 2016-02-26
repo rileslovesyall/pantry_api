@@ -1,7 +1,7 @@
 users = [
-  {name: "Rick", email: "rick@tinyrick.com", password: "newsgoes", password_confirmation: "newsgoes", api_token: "pantryz0GH_fEfLryZxoo0OS0kkw"},
-  {name: "Morty", email: "morty@gmail.com", password: "morty1", password_confirmation: "morty1"},
-  {name: "Bird Person", email: "bird@person.com", password: "monotone", password_confirmation: "monotone"}
+  {name: "Rick", email: "rick@tinyrick.com", password: "123", password_confirmation: "123", api_token: "pantryz0GH_fEfLryZxoo0OS0kkw"},
+  {name: "Morty", email: "morty@tinyrick.com", password: "123", password_confirmation: "123"},
+  {name: "Bird Person", email: "bird@person.com", password: "123", password_confirmation: "123"}
 ]
 
 pantry_items = [

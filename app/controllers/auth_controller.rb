@@ -5,7 +5,6 @@ module Pantry
       def self.registered(app)
 
         user_token = lambda do
-          response.headers['Access-Control-Allow-Origin'] = '*'
           user = User.find_by(email: params[:email])
           if user && user.authenticate(params[:password])
               user.get_token
