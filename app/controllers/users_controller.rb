@@ -5,7 +5,6 @@ module Pantry
       def self.registered(app)
 
         show = lambda do
-          # request
           return @u.to_json(except: [:password_digest])
         end
 
@@ -28,7 +27,20 @@ module Pantry
         end
 
         update = lambda do
-          # TODO write method
+          @u.update(params)
+          if @u.save
+            status 200
+            return {
+              message: "Your user information has been updated.",
+              user: {
+                name: @u.name,
+                email: @u.email
+                }
+              }.to_json
+          else
+            status 500
+            return {error: "Something went wrong. Please try again."}.to_json
+          end
         end
 
         delete = lambda do
@@ -53,7 +65,7 @@ module Pantry
         app.get base + '/:id/private_pantry', &private_pantry
         app.get base + '/:id', &show
         app.post base, allows: [:email, :password, :password_confirmation, :name] , &create
-        app.post base + '/:id', &update
+        app.post base + '/:id', allows: [:email, :name], &update
         app.delete base + ':/id', &delete
 
       end
