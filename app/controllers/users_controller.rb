@@ -12,8 +12,12 @@ module Pantry
           # TODO write method
           u = User.create(params)
           if u.save
+            u.reload
             status 200
-            return {message: "User has been created."}.to_json
+            return {
+              message: "User has been created.",
+              user: u
+              }.to_json
           else
             status 400
             return {error: "There was a problem creating this user."}.to_json

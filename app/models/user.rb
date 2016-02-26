@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :on => :create
 
+  before_create :get_token
+
   def get_token
     token = 'pantry' + SecureRandom.urlsafe_base64
     self.api_token = token
