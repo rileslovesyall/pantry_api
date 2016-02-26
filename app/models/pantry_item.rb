@@ -19,8 +19,9 @@ class PantryItem < ActiveRecord::Base
   end
 
   def add_ingredients(ing_arr)
-    ing_arr.each do |ing|
-      self.ingredients.push(ing)
+    ing_arr.split(",").each do |ing|
+      i = Ingredient.create(name: ing)
+      self.ingredients.push(i)
     end
   end
 
