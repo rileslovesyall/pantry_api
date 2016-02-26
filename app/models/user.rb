@@ -22,8 +22,8 @@ class User < ActiveRecord::Base
     end
   end
 
-  def pantry
-    self.pantry_items.where(consumed: false)
+  def personal_pantry
+    self.pantry_items.where('quantity >= 0')
   end
 
   def public_pantry
@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
   end
 
   def private_pantry
-    self.pantry_items.where(show_public: false, consumed: false)
+    self.pantry_items.where('show_public = false AND quantity >= 0')
   end
 
   def consumed_pantry
