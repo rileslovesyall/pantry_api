@@ -12,7 +12,7 @@ class PantryItemUser < ActiveRecord::Base
     if self.action == 'add'
         self.pantry_item.quantity += self.quantity
     elsif self.action == 'consume'
-      if self.pantry_item.quantity > self.quantity
+      if self.pantry_item.quantity >= self.quantity
         self.pantry_item.quantity -= self.quantity
         self.pantry_item.save
       else

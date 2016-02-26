@@ -78,6 +78,7 @@ module Pantry
         end
 
         consume = lambda do
+          get_product(params['id'])
           if @curr_user != @p.user
             status 401
             return { errors: "You are not authorized to make this request." }
@@ -93,6 +94,7 @@ module Pantry
             status 400
             return {
               error: "You don't have any of this item to consume.",
+              quantity: @p.quantity
               }.to_json
           end
           status 200
@@ -108,9 +110,9 @@ module Pantry
         app.get base, &index
         app.get base + '/:id', &show
         app.post base, &create
-        app.post base + '/:id', allows: [:name, :description, :expiration_date, :show_public], &update
+        app.post base + '/:id', allows: [:id, :name, :description, :expiration_date, :show_public], &update
         app.delete base + '/:id', &delete
-        app.post base + '/:id/consume', &consume
+        app.post base + '/:id/consume', allows: [:quantity, :id], &consume
 
       end
     end
