@@ -18,12 +18,24 @@ class PantryItem < ActiveRecord::Base
     return self.where(show_public: true, consumed: false)
   end
 
-  def add_ingredients(ing_arr)
-    ing_arr.split(",").each do |ing|
-      i = Ingredient.create(name: ing)
-      self.ingredients.push(i)
-    end
-  end
+  # 
+  # TODO figure out how to add ingredients on creation of pantryitem
+  #   
+  # def add_ingredients(ing_arr)
+  #   puts ing_arr
+  #   ing_arr.split(",").each do |ing_hash_str|
+  #     ing = JSON.parse(ing_hash_str.to_json)
+  #     i = Ingredient.create(ing)
+  #     self.ingredients.push(i)
+  #   end
+  # end
+
+  # def update_ingredients(ing_arr)
+  #   ing_arr.split(",").each do |ing|
+  #     i = Ingredient.create(name: ing)
+  #     self.ingredients.push(i) if self.ingredients
+  #   end
+  # end
 
   private
 

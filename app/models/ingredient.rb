@@ -7,4 +7,19 @@ class Ingredient < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name
 
+  def find_or_create(ing_hash)
+    i = Ingredient.find(name: ing_hash[:name])
+    if i
+      return i
+    else
+      ing = Ingredient.create(ing_hash)
+      if ing
+        return ing
+      else
+        # TODO update this error type
+        raise "There was an error creating this ingredient."
+      end
+    end
+  end
+
 end
