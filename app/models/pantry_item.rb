@@ -1,6 +1,7 @@
 class PantryItem < ActiveRecord::Base
   belongs_to :user
-  has_many :ingredients
+  has_many :pantry_item_ingredients
+  has_many :ingredients, through: :pantry_item_ingredients
   has_many :pantry_item_users
   has_many :pantry_item_categories
   has_many :categories, through: :pantry_item_categories
@@ -18,7 +19,9 @@ class PantryItem < ActiveRecord::Base
   end
 
   def add_ingredients(ing_arr)
-    
+    ing_arr.each do |ing|
+      self.ingredients.push(ing)
+    end
   end
 
   private
