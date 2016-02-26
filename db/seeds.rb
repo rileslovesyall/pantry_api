@@ -33,18 +33,15 @@ ingredients = [
   {name: "White Vinegar"}
 ]
 
-recipes = [
-  {name: "Gran's Old Applesauce", user_id: 2},
-  {name: "Dilly 'Sparagus Pickles", user_id: 1}
+pantry_item_ingredients = [
+  {ingredient_id: 1,pantry_item_id: 1},
+  {ingredient_id: 4,pantry_item_id: 1},
+  {ingredient_id: 2,pantry_item_id: 2},
+  {ingredient_id: 3,pantry_item_id: 2},
+  {ingredient_id: 5,pantry_item_id: 5},
+  {ingredient_id: 6,pantry_item_id: 5}
 ]
 
-recipe_ingredients = [
-  {recipe_id: 1, ingredient_id: 1},
-  {recipe_id: 1, ingredient_id: 4},
-  {recipe_id: 2, ingredient_id: 5},
-  {recipe_id: 2, ingredient_id: 6},
-  {recipe_id: 2, ingredient_id: 2}
-]
 
 users.each do |u|
   User.create(u)
@@ -66,10 +63,6 @@ ingredients.each do |i|
   Ingredient.create(i)
 end
 
-recipes.each do |r|
-  Recipe.create(r)
-end
-
-recipe_ingredients.each do |ri|
-  RecipeIngredient.create(ri)
+pantry_item_ingredients.each do |pii|
+  PantryItemIngredient.create(pii)
 end

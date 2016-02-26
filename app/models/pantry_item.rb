@@ -1,5 +1,6 @@
 class PantryItem < ActiveRecord::Base
   belongs_to :user
+  has_many :ingredients
   has_many :pantry_item_users
   has_many :pantry_item_categories
   has_many :categories, through: :pantry_item_categories
@@ -14,6 +15,10 @@ class PantryItem < ActiveRecord::Base
 
   def self.public
     return self.where(show_public: true, consumed: false)
+  end
+
+  def add_ingredients(ing_arr)
+    
   end
 
   private

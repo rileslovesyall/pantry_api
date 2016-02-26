@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160225191535) do
+ActiveRecord::Schema.define(version: 20160226162807) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -25,6 +25,13 @@ ActiveRecord::Schema.define(version: 20160225191535) do
   create_table "pantry_item_categories", force: :cascade do |t|
     t.integer "pantry_item_id"
     t.integer "category_id"
+  end
+
+  create_table "pantry_item_ingredients", force: :cascade do |t|
+    t.integer "pantry_item_id"
+    t.integer "ingredient_id"
+    t.string  "measurement"
+    t.integer "quantity"
   end
 
   create_table "pantry_item_users", force: :cascade do |t|
@@ -41,18 +48,6 @@ ActiveRecord::Schema.define(version: 20160225191535) do
     t.integer "user_id"
     t.string  "expiration_date"
     t.boolean "show_public",     default: true
-  end
-
-  create_table "recipe_ingredients", force: :cascade do |t|
-    t.integer "recipe_id"
-    t.integer "ingredient_id"
-    t.integer "quantity"
-    t.string  "measurement"
-  end
-
-  create_table "recipes", force: :cascade do |t|
-    t.string  "name"
-    t.integer "user_id"
   end
 
   create_table "users", force: :cascade do |t|
