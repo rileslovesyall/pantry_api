@@ -78,6 +78,24 @@ class PantryApp < Sinatra::Base
 
   end
 
+  # 
+  # HELPERS
+  # 
+
+  helpers do
+
+    def requester_must_own_resource
+      if @curr_user != @p.user
+        status 401
+        return { errors: "You are not authorized to make this request." }
+      end
+    end
+
+    def get_product(id)
+      @p = PantryItem.find(id)
+    end
+  end
+
   #
   # ROUTES ON ROUTES ON ROUTES
   #
@@ -97,8 +115,8 @@ class PantryApp < Sinatra::Base
   register Pantry::Controller::Recipes
   register Pantry::Controller::Auth 
 
-  before '/api/v1/pantryitems/:id/*' do
-      @p = PantryItem.find(params[:id])
+  before '/api/v1/pantryitems/:id' do
+     get_product(params[:id])
   end
 
   error RuntimeError do

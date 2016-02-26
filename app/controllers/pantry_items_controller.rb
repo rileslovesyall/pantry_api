@@ -5,13 +5,7 @@ module Pantry
       def self.registered(app)
 
         # NOT WORKING
-        # 
-        # def requester_must_own_resource
-        #   if @curr_user != @p.user
-        #     status 401
-        #     return { errors: "You are not authorized to make this request." }
-        #   end
-        # end
+        
 
         index = lambda do
           p = PantryItem.all
@@ -23,7 +17,7 @@ module Pantry
 
         show = lambda do
           if !@p.show_public
-            check_if_requester_owns_resource
+            requester_must_own_resource
           end
           content_type :json
           status 200
@@ -53,6 +47,7 @@ module Pantry
 
         update = lambda do
           requester_must_own_resource
+          # get_product(params[:id])
           @p.update(params)
           if @p.save
             response = {
@@ -94,7 +89,6 @@ module Pantry
               quantity: params["quantity"],
               action: 'consume'
               })
-            # binding.pry
           rescue
             status 400
             return {
@@ -114,8 +108,8 @@ module Pantry
         app.get base, &index
         app.get base + '/:id', &show
         app.post base, &create
-        app.patch base + '/:id', 
-          allows: [:name, :description, :quantity, :consumed_at, :consumed, :expiration_date, :show_public], 
+        app.post base + '/:id', 
+          allows: [:name, :description, :expiration_date, :show_public], 
           &update
         app.delete base + '/:id', &delete
         app.post base + '/:id/consume', &consume
