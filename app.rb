@@ -86,15 +86,13 @@ class PantryApp < Sinatra::Base
 
     def requester_must_own_pantry_item
       if @curr_user != @p.user
-        status 401
-        return { errors: "You are not authorized to make this request." }
+        halt 401, {errors: "You are not authorized to make this request." }.to_json
       end
     end
 
     def requester_must_be_user
       if @curr_user != User.find(params[:id])
-        status 401
-        return { errors: "You are not authorized to make this request." }
+        halt 202, { errors: "You are not authorized to make this request." }.to_json
       end
     end
 
@@ -118,7 +116,6 @@ class PantryApp < Sinatra::Base
 
   before '/api/v1/*'  do
     unless params[:splat] == ['token'] || params[:splat] == ['unauthenticated'] || params[:splat] == ['users']
-      binding.pry
         @curr_user = env['warden'].authenticate!(:access_token)
     end
   end
@@ -137,8 +134,8 @@ class PantryApp < Sinatra::Base
   register Pantry::Controller::PantryItems
 
   before '/api/v1/users/:id' do
-    get_user(params[:id])
     requester_must_be_user
+    get_user(params[:id])
   end
 
   before '/api/v1/users/:id/*' do
@@ -160,6 +157,7 @@ class PantryApp < Sinatra::Base
   #
 
   post '/unauthenticated' do
+      raise
       content_type :json
       json({ message: "Sorry, this request can not be authenticated. Try again." })
   end

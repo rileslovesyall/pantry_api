@@ -15,8 +15,11 @@ class User < ActiveRecord::Base
   before_create :get_token
 
   def get_token
-    token = 'pantry' + SecureRandom.urlsafe_base64
-    self.api_token = token
+    # TODO REMOVE THIS DON'T FORGET
+    unless self.email == 'rick@tinyrick.com'
+      token = 'pantry' + SecureRandom.urlsafe_base64
+      self.api_token = token
+    end
   end
 
   def pantry

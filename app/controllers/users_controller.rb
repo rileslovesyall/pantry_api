@@ -5,11 +5,11 @@ module Pantry
       def self.registered(app)
 
         show = lambda do
+          # request
           return @u.to_json(except: [:password_digest])
         end
 
         create = lambda do
-          # TODO write method
           u = User.create(params)
           if u.save
             u.reload
@@ -18,6 +18,9 @@ module Pantry
               message: "User has been created.",
               user: u
               }.to_json
+          elsif !User.where(email: params['email']).nil?
+            status 400 
+            return {error: "A user with this e-mail address already exists."}.to_json
           else
             status 400
             return {error: "There was a problem creating this user."}.to_json

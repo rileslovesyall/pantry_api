@@ -17,9 +17,9 @@ module Pantry
         end
 
         show = lambda do
-          if !@p.show_public
+          # if !@p.show_public
             requester_must_own_pantry_item
-          end
+          # end
           content_type :json
           status 200
           body 
