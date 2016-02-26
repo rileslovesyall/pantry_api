@@ -61,9 +61,17 @@ module Pantry
 
         delete = lambda do
           requester_must_own_resource
-          @p.delete
-          @p.pantry_item_categories.each do |pic|
-            pic.delete
+          begin
+            @p.pantry_item_categories.each do |pic|
+              pic.delete
+            end
+            @p.pantry_item_users.each do |piu|
+              piu.delete
+            end
+            @p.delete
+          rescue
+            status 500
+            return {error: "Something went wrong. Please try again."}
           end
           status 200
           response = {
@@ -105,7 +113,7 @@ module Pantry
           get_product(params['id'])
           requester_must_own_resource
           if params['quantity'].nil?
-            status 40
+            status 400
             return {error: "You must provide a quantity."}.to_json
           end
           add = PantryItemUser.create({
