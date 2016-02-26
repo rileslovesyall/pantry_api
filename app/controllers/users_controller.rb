@@ -59,6 +59,7 @@ module Pantry
 
         public_pantry = lambda do
           p = @curr_user.public_pantry
+          # binding.pry
           status 200
           return {pantry_items: p}.to_json
         end
@@ -70,10 +71,18 @@ module Pantry
           return {pantry_items: p}.to_json
         end
 
+        private_pantry = lambda do
+          requester_must_be_user
+          p = @curr_user.private_pantry
+          status 200
+          return {pantry_items: p}.to_json
+        end
+
         base = '/api/v1/users'
 
         app.get base + '/:id/public_pantry', &public_pantry
         app.get base + '/:id/personal_pantry', &personal_pantry
+        app.get base + '/:id/private_pantry', &private_pantry
         app.get base + '/:id', &show
         app.post base, allows: [:email, :password, :password_confirmation, :name] , &create
         app.post base + '/:id', allows: [:email, :name], &update
