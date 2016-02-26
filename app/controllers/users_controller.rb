@@ -44,7 +44,17 @@ module Pantry
         end
 
         delete = lambda do
-          # TODO write method
+          begin
+            @u.pantry_item_users.each do |pic|
+              pic.delete
+            end
+            @u.delete
+          rescue
+            status 400
+            return {error: "Something went wrong. Please try again."}.to_json
+          end
+          status 200
+          return {message: "Your user profile has been deleted."}.to_json
         end
 
         public_pantry = lambda do
@@ -66,7 +76,7 @@ module Pantry
         app.get base + '/:id', &show
         app.post base, allows: [:email, :password, :password_confirmation, :name] , &create
         app.post base + '/:id', allows: [:email, :name], &update
-        app.delete base + ':/id', &delete
+        app.delete base + '/:id', &delete
 
       end
     end
