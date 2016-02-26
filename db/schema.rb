@@ -27,20 +27,20 @@ ActiveRecord::Schema.define(version: 20160225191535) do
     t.integer "category_id"
   end
 
+  create_table "pantry_item_users", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "pantry_item_id"
+    t.string  "action"
+    t.integer "quantity"
+  end
+
   create_table "pantry_items", force: :cascade do |t|
     t.string  "name"
     t.text    "description"
     t.integer "quantity"
     t.integer "user_id"
     t.string  "expiration_date"
-    t.boolean "public",          default: true
-  end
-
-  create_table "pantry_item_users", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "pantry_item_id"
-    t.string  "action"
-    t.integer "quantity"
+    t.boolean "show_public",     default: true
   end
 
   create_table "recipe_ingredients", force: :cascade do |t|

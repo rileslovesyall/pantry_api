@@ -8,6 +8,7 @@ module Pantry
         
 
         index = lambda do
+          # TODO update this method
           p = PantryItem.all
           content_type :json
           status 200
@@ -34,33 +35,27 @@ module Pantry
             })
           if p.save
             content_type :json
-            status 200
-            body 
-              {message: "Your item has been created"}.to_json
+            status 200 
+            return {message: "Your item has been created"}.to_json
           else
             # TODO update status codes here
             status 400
-            {errors: "Something went wrong, please try again."}.to_json
+            return {errors: "Something went wrong, please try again."}.to_json
           end
 
         end
 
         update = lambda do
           requester_must_own_resource
-          # get_product(params[:id])
           @p.update(params)
           if @p.save
-            response = {
+            return {
               message: "Your item as been updated.",
               pantryitem: @p
-            }
-            body response.to_json
+            }.to_json
           else
-            response = {
-              errors: "There was a mistake. Please try again."
-            }
             status 400
-            body response.to_json
+            return {errors: "There was a mistake. Please try again."}.to_json
           end
         end
 
@@ -79,9 +74,10 @@ module Pantry
 
         consume = lambda do
           get_product(params['id'])
-          if @curr_user != @p.user
-            status 401
-            return { errors: "You are not authorized to make this request." }
+          requester_must_own_resource
+          if params['quantity'].nil?
+            status 400
+            return {error: "You must provide a quantity."}.to_json
           end
           begin
             PantryItemUser.create({
@@ -94,15 +90,41 @@ module Pantry
             status 400
             return {
               error: "You don't have any of this item to consume.",
-              quantity: @p.quantity
+              pantryitem: @p
               }.to_json
           end
           status 200
           @p.reload
           return {
             message: "Your consumption was successful.",
-            new_quantity: @p.quantity
+            pantryitem: @p
           }.to_json
+        end
+
+        add = lambda do
+          get_product(params['id'])
+          requester_must_own_resource
+          if params['quantity'].nil?
+            status 40
+            return {error: "You must provide a quantity."}.to_json
+          end
+          add = PantryItemUser.create({
+            user_id: @curr_user,
+            pantry_item_id: @p.id,
+            quantity: params['quantity'],
+            action: 'add'
+            })
+          if add
+            status 200
+            @p.reload
+            return {
+              message: "Addition was a success.",
+              pantryitem: @p
+            }.to_json
+          else
+            status 400
+            return {error: "Something went wrong. Please try again."}
+          end
         end
 
         base = '/api/v1/pantryitems'
@@ -110,9 +132,10 @@ module Pantry
         app.get base, &index
         app.get base + '/:id', &show
         app.post base, &create
-        app.post base + '/:id', allows: [:id, :name, :description, :expiration_date, :show_public], &update
+        app.post base + '/:id', allows: [:name, :description, :expiration_date, :show_public], &update
         app.delete base + '/:id', &delete
         app.post base + '/:id/consume', allows: [:quantity, :id], &consume
+        app.post base + '/:id/add', allows: [:quantity, :id], &add
 
       end
     end
