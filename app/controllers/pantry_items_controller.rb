@@ -108,9 +108,7 @@ module Pantry
         app.get base, &index
         app.get base + '/:id', &show
         app.post base, &create
-        app.post base + '/:id', 
-          allows: [:name, :description, :expiration_date, :show_public], 
-          &update
+        app.post base + '/:id', allows: [:name, :description, :expiration_date, :show_public], &update
         app.delete base + '/:id', &delete
         app.post base + '/:id/consume', &consume
 
