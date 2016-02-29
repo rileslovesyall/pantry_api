@@ -7,7 +7,7 @@ require 'sinatra/contrib/all'
 require 'json'
 require 'warden'
 require 'sinatra/strong-params'
-require 'pry'
+# require 'pry'
 
 
 Bundler.setup
