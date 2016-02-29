@@ -1,6 +1,5 @@
 require 'rubygems'
 require 'bundler/setup'
-require 'rspec/core/rake_task'
 require 'fileutils'
 require 'logger'
 require 'sinatra/activerecord/rake'
@@ -19,6 +18,7 @@ task :env do
 end
 
 begin
+  require 'rspec/core/rake_task'
   desc 'Run all tests'
   RSpec::Core::RakeTask.new(:spec) do |t|
     t.pattern = 'spec/**/*_spec.rb'
