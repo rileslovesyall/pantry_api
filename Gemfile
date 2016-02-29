@@ -26,6 +26,9 @@ gem 'warden'
 # For dem strong params
 gem 'sinatra-strong-params'
 
+# database
+gem 'pg'
+
 group :test do
   gem 'rspec'
   gem 'simplecov'

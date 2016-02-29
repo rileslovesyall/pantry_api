@@ -11,7 +11,7 @@ test:
   username: root
 
 production:
-  adapter: mysql2
+  adapter: pg
   database: application_prd
   pool: 5
   username: account_name
