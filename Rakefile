@@ -3,7 +3,6 @@ require 'bundler/setup'
 require 'fileutils'
 require 'logger'
 require 'sinatra/activerecord/rake'
-require 'rake/notes/rake_task'
 
 task :default do
   puts "Available tasks:"
@@ -15,6 +14,11 @@ end
 
 task :env do
   require "#{File.dirname(__FILE__)}/app.rb"
+end
+
+begin
+  require 'rake/notes/rake_task'
+rescue LoadError
 end
 
 begin
