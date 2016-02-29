@@ -21,8 +21,6 @@ gem 'omniauth-twitter'
 gem 'bcrypt', '~> 3.1.2'
 gem 'jwt'
 gem 'warden'
-# gem 'warden-jwt'
-# gem 'sinatra-warden'
 
 # For dem strong params
 gem 'sinatra-strong-params'

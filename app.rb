@@ -7,7 +7,6 @@ require 'sinatra/contrib/all'
 require 'json'
 require 'warden'
 require 'sinatra/strong-params'
-# require 'jwt'
 require 'pry'
 
 
@@ -22,7 +21,7 @@ ActiveRecord::Base.establish_connection dbconfig["#{settings.environment}"]
 Dir["./app/**/*.rb"].each { |f| require f }
 
 
-class PantryApp < Sinatra::Base
+class PantryAPI < Sinatra::Base
 
   set :root, File.dirname(__FILE__)
   enable :sessions
