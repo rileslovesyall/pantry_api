@@ -11,7 +11,7 @@ test:
   username: root
 
 production:
-  adapter: pg
+  adapter: postgresql
   database: application_prd
   pool: 5
   username: account_name
