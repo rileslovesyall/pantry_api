@@ -16,6 +16,7 @@ module Pantry
                 message: "New API Token has been generated."
               }
               status 200
+              content_type :json
               return response.to_json
           else
             return {errors: "Incorrect email or password."}.to_json

@@ -11,23 +11,24 @@ gem 'sinatra-contrib'
 gem 'sinatra-activerecord'
 gem 'activerecord'
 gem 'activemodel'
+gem 'pg'
 
 # to send json
 gem 'json'
 
 # for authentication
 gem 'omniauth'
-# gem 'omniauth-jwt'
 gem 'omniauth-twitter'
 gem 'bcrypt', '~> 3.1.2'
-gem 'jwt'
+# gem 'jwt'
 gem 'warden'
 
 # For dem strong params
 gem 'sinatra-strong-params'
 
-# database
-gem 'pg'
+# Amazon SDK
+gem 'aws-sdk', '~> 2'
+
 
 group :test do
   gem 'rspec'

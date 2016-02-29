@@ -7,7 +7,7 @@ require 'sinatra/contrib/all'
 require 'json'
 require 'warden'
 require 'sinatra/strong-params'
-# require 'pry'
+require 'pry'
 
 
 Bundler.setup
@@ -111,6 +111,7 @@ class PantryAPI < Sinatra::Base
 
   before do
     response.headers['Access-Control-Allow-Origin'] = '*'
+    content_type :json
   end
 
   before '/api/v1/*'  do
