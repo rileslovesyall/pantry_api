@@ -15,7 +15,7 @@ Bundler.require(:default, ENV["RACK_ENV"].to_sym)
 
 # DATABASE CONFIG
 dbconfig = YAML.load(File.read('./config/database.yml'))
-ActiveRecord::Base.establish_connection dbconfig["#{settings.environment}"]
+ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'] || dbconfig["#{settings.environment}"])
 
 # REQUIRE ALL APP FILES
 Dir["./app/**/*.rb"].each { |f| require f }
