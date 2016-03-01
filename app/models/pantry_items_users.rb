@@ -20,6 +20,7 @@ class PantryItemUser < ActiveRecord::Base
         raise "You don't have enough of this item to consume!"
       end
     end
+
   end
 
 end

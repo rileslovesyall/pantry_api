@@ -49,7 +49,7 @@ class PantryAPI < Sinatra::Base
   use Rack::Cors do
       allow do
         origins '*'
-        resource '/*', :headers => :any, :methods => [:get, :post, :options, :put]
+        resource '/*', :headers => :any, :methods => [:get, :post, :options, :put, :delete]
       end
   end
 
@@ -129,8 +129,6 @@ class PantryAPI < Sinatra::Base
 
   before do
     response.headers['Access-Control-Allow-Origin'] = '*'
-    # response.headers['Access-Control-Allow-Headers'] = '*'
-    # response.headers['Access-Control-Allow-Methods'] = '*'
     content_type :json
   end
 

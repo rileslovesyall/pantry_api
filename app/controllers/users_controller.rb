@@ -9,7 +9,9 @@ module Pantry
         end
 
         create = lambda do
+          response.headers['Access-Control-Allow-Origin'] = '*'
           u = User.create(params)
+          binding.pry
           if u.save
             u.reload
             status 200
@@ -81,11 +83,11 @@ module Pantry
 
         base = '/api/v1/users'
 
+        app.post base, allows: [:email, :password, :password_confirmation, :name] , &create
         app.get base + '/:id/public_pantry', &public_pantry
         app.get base + '/:id/personal_pantry', &personal_pantry
         app.get base + '/:id/private_pantry', &private_pantry
         app.get base + '/:id', &show
-        app.post base, allows: [:email, :password, :password_confirmation, :name] , &create
         app.post base + '/:id', allows: [:email, :name], &update
         app.delete base + '/:id', &delete
 

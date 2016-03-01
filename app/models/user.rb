@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :on => :create
 
-  before_create :get_token
+  after_create :get_token
 
   def get_token
     # TODO REMOVE THIS DON'T FORGET
