@@ -27,12 +27,7 @@ module Pantry
         end
 
         create = lambda do
-          p = PantryItem.create({
-            name: params["name"],
-            description: params["description"],
-            quantity: params["quantity"],
-            user_id: @curr_user.id
-            })
+          p = PantryItem.create(params)
           p.add_ingredients(params['ingredients'])
           if p.save
             content_type :json
@@ -140,8 +135,8 @@ module Pantry
 
         app.get base, &index
         app.get base + '/:id', &show
-        app.post base, allows: [:name, :description, :expiration_date, :show_public, :quantity, :ingredients], &create
-        app.post base + '/:id', allows: [:name, :description, :expiration_date, :show_public, :ingredients], &update
+        app.post base, allows: [:name, :description, :expiration_date, :show_public, :quantity, :ingredients, :portion_size], &create
+        app.post base + '/:id', allows: [:name, :description, :expiration_date, :show_public, :ingredients, :portion_size], &update
         app.delete base + '/:id', &delete
         app.post base + '/:id/consume', allows: [:quantity, :id], &consume
         app.post base + '/:id/add', allows: [:quantity, :id], &add
