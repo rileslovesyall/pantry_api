@@ -8,7 +8,7 @@ module Pantry
           user = User.find_by(email: params[:email])
           if user && user.authenticate(params[:password])
               user.get_token
-              response = {
+              info = {
                 name: user.name,
                 email: user.email,
                 uid: user.id,
@@ -17,7 +17,9 @@ module Pantry
               }
               status 200
               content_type :json
-              return response.to_json
+              body info.to_json
+              # binding.pry
+              return
           else
             return {errors: "Incorrect email or password."}.to_json
           end

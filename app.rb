@@ -1,5 +1,6 @@
 ENV["RACK_ENV"] ||= "development"
 
+require 'rack/cors'
 require 'bundler'
 require 'active_record'
 require 'sinatra/base'
@@ -26,6 +27,10 @@ class PantryAPI < Sinatra::Base
   set :root, File.dirname(__FILE__)
   enable :sessions
 
+  configure :production, :development do
+    enable :logging
+  end
+
   #
   # HELPFUL EXTRA STUFF
   #
@@ -37,10 +42,20 @@ class PantryAPI < Sinatra::Base
   # MIDDLEWARE
   #
 
+  # RACK CORS MIDDLEWARE
+
+  use Rack::Cors do
+      allow do
+        origins '*'
+        resource '/*', :headers => :any, :methods => [:get, :post, :options, :put]
+      end
+  end
+
   configure :development do
     use BetterErrors::Middleware
     BetterErrors.application_root = __dir__
   end
+
 
   #
   # WARDEN MIDDLEWARE
@@ -77,6 +92,7 @@ class PantryAPI < Sinatra::Base
 
   end
 
+
   # 
   # HELPERS
   # 
@@ -111,11 +127,14 @@ class PantryAPI < Sinatra::Base
 
   before do
     response.headers['Access-Control-Allow-Origin'] = '*'
+    # response.headers['Access-Control-Allow-Headers'] = '*'
+    # response.headers['Access-Control-Allow-Methods'] = '*'
     content_type :json
   end
 
   before '/api/v1/*'  do
     unless params[:splat] == ['token'] || params[:splat] == ['unauthenticated'] || params[:splat] == ['users']
+        # binding.pry
         @curr_user = env['warden'].authenticate!(:access_token)
     end
   end

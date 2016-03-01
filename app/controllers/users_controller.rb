@@ -65,6 +65,7 @@ module Pantry
         end
 
         personal_pantry = lambda do
+          # binding.pry
           requester_must_be_user
           p = @curr_user.personal_pantry
           status 200
