@@ -42,7 +42,9 @@ class PantryAPI < Sinatra::Base
   # MIDDLEWARE
   #
 
+  # 
   # RACK CORS MIDDLEWARE
+  # 
 
   use Rack::Cors do
       allow do

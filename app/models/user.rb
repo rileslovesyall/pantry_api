@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
     unless self.email == 'rick@tinyrick.com'
       token = 'pantry' + SecureRandom.urlsafe_base64
       self.api_token = token
+      self.save
     end
   end
 
