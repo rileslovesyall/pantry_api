@@ -5,11 +5,11 @@ users = [
 ]
 
 pantry_items = [
-  {name: "Applesauce", description: "Just like mama used to make.", portion_size: "Quart" , quantity: 3, user_id: 1, expiration_date: (DateTime.now + 3)},
-  {name: "Cucumber Pickles", description: "Dill.", portion_size: "Half Gallon", quantity: 2, user_id: 1, expiration_date: (DateTime.now + 2)},
-  {name: "Tomato Soup", description: "Get dat grilled cheese on.", portion_size: "Quart", quantity: 4, user_id: 1, expiration_date: (DateTime.now + 6)},
-  {name: "Old Fashioned Pickles", portion_size: "Pint", quantity: 45, user_id: 2, expiration_date: (DateTime.now + 3)},
-  {name: "Pickled Asparagus", quantity: 15, portion_size: "8 oz", user_id: 2, expiration_date: (DateTime.now + 3)}
+  {name: "Applesauce", description: "Just like mama used to make.", portion: "Quart" , quantity: 3, user_id: 1, expiration_date: (DateTime.now + 3)},
+  {name: "Cucumber Pickles", description: "Dill.", portion: "Half Gallon", quantity: 2, user_id: 1, expiration_date: (DateTime.now + 2)},
+  {name: "Tomato Soup", description: "Get dat grilled cheese on.", portion: "Quart", quantity: 4, user_id: 1, expiration_date: (DateTime.now + 6)},
+  {name: "Old Fashioned Pickles", portion: "Pint", quantity: 45, user_id: 2, expiration_date: (DateTime.now + 3)},
+  {name: "Pickled Asparagus", quantity: 15, portion: "8 oz", user_id: 2, expiration_date: (DateTime.now + 3)}
 ]
 
 categories = [

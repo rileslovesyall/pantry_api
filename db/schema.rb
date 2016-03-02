@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 20160301214905) do
     t.integer "user_id"
     t.string  "expiration_date"
     t.boolean "show_public",     default: true
-    t.string  "portion_size"
+    t.string  "portion"
   end
 
   create_table "users", force: :cascade do |t|

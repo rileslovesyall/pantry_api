@@ -79,6 +79,7 @@ class PantryAPI < Sinatra::Base
 
   Warden::Strategies.add(:access_token) do
       def valid?
+        # binding.pry
           # Validate that the access token is properly formatted.
           if !request.env["HTTP_AUTHORIZATION"].nil?
             request.env["HTTP_AUTHORIZATION"].slice(0..5) == 'pantry'
@@ -88,6 +89,7 @@ class PantryAPI < Sinatra::Base
       end
 
       def authenticate!
+        # binding.pry
         access_granted = User.find_by(api_token: request.env["HTTP_AUTHORIZATION"])
         !access_granted ? fail!("Could not log in") : success!(access_granted)
       end
@@ -136,6 +138,7 @@ class PantryAPI < Sinatra::Base
     unless params[:splat] == ['token'] || params[:splat] == ['unauthenticated'] || params[:splat] == ['users']
         # binding.pry
         @curr_user = env['warden'].authenticate!(:access_token)
+        # binding.pry
     end
   end
 
@@ -144,10 +147,6 @@ class PantryAPI < Sinatra::Base
 
   before '/api/v1/pantryitems/:id' do
      get_product(params[:id])
-  end
-
-  error RuntimeError do
-    "You are not authorized to make this request."
   end
 
   register Pantry::Controller::PantryItems
