@@ -36,9 +36,9 @@ module Pantry
           p.save
           # p.add_ingredients(params['ingredients'])
           if p.save
-            content_type :json
+            content_type 'text/plain'
             status 200 
-            binding.pry
+            # binding.pry
             return {
               message: "Your item has been created",
               pantryitem: p

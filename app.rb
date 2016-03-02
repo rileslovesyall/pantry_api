@@ -25,7 +25,7 @@ Dir["./app/**/*.rb"].each { |f| require f }
 class PantryAPI < Sinatra::Base
 
   set :root, File.dirname(__FILE__)
-  enable :sessions
+  # enable :sessions
 
   configure :production, :development do
     enable :logging
@@ -49,9 +49,12 @@ class PantryAPI < Sinatra::Base
   use Rack::Cors do
       allow do
         origins '*'
-        resource '/*', :headers => :any, :methods => [:get, :post, :options, :put, :delete]
+        resource '/*', :headers => :any, :methods => [:get, :post, :put, :options, :delete]
+        resource '/*', :headers => 'Content-Type'
       end
   end
+
+  # :options,
 
   configure :development do
     use BetterErrors::Middleware
