@@ -30,12 +30,18 @@ module Pantry
         end
 
         create = lambda do
-          p = PantryItem.create(params)
-          p.add_ingredients(params['ingredients'])
+          binding.pry
+          p = PantryItem.new(params)
+          p.user = @curr_user
+          p.save
+          # p.add_ingredients(params['ingredients'])
           if p.save
             content_type :json
             status 200 
-            return {message: "Your item has been created"}.to_json
+            return {
+              message: "Your item has been created",
+              pantryitem: p
+              }.to_json
           else
             # TODO update status codes here
             status 400
@@ -117,7 +123,7 @@ module Pantry
             return {error: "You must provide a quantity."}.to_json
           end
           add = PantryItemUser.create({
-            user_id: @curr_user,
+            user_id: @curr_user.id,
             pantry_item_id: @p.id,
             quantity: params['quantity'],
             action: 'add'

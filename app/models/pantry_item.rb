@@ -41,8 +41,8 @@ class PantryItem < ActiveRecord::Base
 
   def create_pantry_item_user
     p = PantryItemUser.create({
-      pantry_item_id: self.id,
-      user_id: self.user.id,
+      pantry_item_id: self.user.id,
+      user_id: id,
       action: 'init',
       quantity: self.quantity
       })

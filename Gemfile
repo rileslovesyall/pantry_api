@@ -7,6 +7,7 @@ gem 'rake'
 gem 'sinatra'
 gem 'sinatra-contrib'
 gem 'rack-cors'
+gem 'thin'
 
 # database fun
 gem 'sinatra-activerecord'
