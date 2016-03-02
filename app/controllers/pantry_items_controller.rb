@@ -23,7 +23,10 @@ module Pantry
           content_type :json
           status 200
           body 
-            {pantryitem: @p}.to_json
+            {
+              pantryitem: @p,
+              ingredients: @p.ingredients
+            }.to_json
         end
 
         create = lambda do
@@ -47,7 +50,8 @@ module Pantry
           if @p.save
             return {
               message: "Your item as been updated.",
-              pantryitem: @p
+              pantryitem: @p,
+              ingredients: @p.ingredients
             }.to_json
           else
             status 400
