@@ -10,8 +10,11 @@ test:
   pool: 5
   username: root
 
-production:
+production: 
   adapter: postgresql
-  database: application_prd
-  pool: 5
-  username: pantry_admin
+  encoding: utf8
+  database: <%= ENV['RDS_DB_NAME'] %>
+  username: <%= ENV['RDS_USERNAME'] %>
+  password: <%= ENV['RDS_PASSWORD'] %>
+  host: <%= ENV['RDS_HOSTNAME'] %>
+  port: <%= ENV['RDS_PORT'] %>

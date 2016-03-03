@@ -11,7 +11,7 @@ module Pantry
         create = lambda do
           response.headers['Access-Control-Allow-Origin'] = '*'
           u = User.create(params)
-          binding.pry
+          # binding.pry
           if u.save
             u.reload
             status 200

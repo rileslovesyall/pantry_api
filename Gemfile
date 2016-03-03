@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.2.3'
+ruby '2.2.4'
 
 # core sinatra gems
 gem 'rack'
@@ -30,6 +30,10 @@ gem 'sinatra-strong-params'
 
 # Amazon SDK
 gem 'aws-sdk', '~> 2'
+
+# group :production do
+#   # gem 'puma'
+# end
 
 
 group :test do

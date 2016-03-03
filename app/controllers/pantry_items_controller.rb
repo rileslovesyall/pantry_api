@@ -30,7 +30,6 @@ module Pantry
         end
 
         create = lambda do
-          # binding.pry
           p = PantryItem.new(params)
           p.user = @curr_user
           p.save
@@ -38,7 +37,6 @@ module Pantry
           if p.save
             content_type 'text/plain'
             status 200 
-            # binding.pry
             return {
               message: "Your item has been created",
               pantryitem: p
@@ -147,7 +145,7 @@ module Pantry
         app.get base, &index
         app.get base + '/:id', &show
         app.post base, allows: [:name, :quantity, :description, :expiration_date, :show_public, :portion], &create
-        app.post base + '/:id', allows: [:name, :description, :expiration_date, :show_public, :ingredients, :portion], &update
+        app.post base + '/:id', allows: [:name, :description, :expiration_date, :show_public, :portion], &update
         app.delete base + '/:id', &delete
         app.post base + '/:id/consume', allows: [:quantity, :id], &consume
         app.post base + '/:id/add', allows: [:quantity, :id], &add

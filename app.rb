@@ -137,11 +137,20 @@ class PantryAPI < Sinatra::Base
     content_type :json
   end
 
+  # dummy index route
+  get "/" do
+    "Hello, world."
+    # turn into API docs?
+  end
+
+  get '/api/v1/health' do
+    "Yep, I'm healthy."
+  end
+
+
   before '/api/v1/*'  do
-    unless params[:splat] == ['token'] || params[:splat] == ['unauthenticated'] || params[:splat] == ['users']
-        # binding.pry
+    unless params[:splat] == ['token'] || params[:splat] == ['unauthenticated'] || params[:splat] == ['users'] || params[:splat] == ['health'] 
         @curr_user = env['warden'].authenticate!(:access_token)
-        # binding.pry
     end
   end
 
@@ -166,12 +175,6 @@ class PantryAPI < Sinatra::Base
   end
 
   register Pantry::Controller::Users
-
-  # dummy index route
-  get "/" do
-    return @curr_user.to_json
-    # turn into API docs?
-  end
 
   #
   # UNAUTHENTICATED WARDEN ROUTE
