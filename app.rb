@@ -146,7 +146,7 @@ class PantryAPI < Sinatra::Base
 
 
   before '/api/v1/*'  do
-    unless params[:splat] == ['token'] || params[:splat] == ['unauthenticated'] || params[:splat] == ['users']
+    unless params[:splat] == ['token'] || params[:splat] == ['unauthenticated'] || params[:splat] == ['users'] || params[:splat] == ['health'] 
         @curr_user = env['warden'].authenticate!(:access_token)
     end
   end
