@@ -30,6 +30,8 @@ module Pantry
         end
 
         create = lambda do
+          ingredients = params['ingredients']
+          params.delete('ingredients')
           p = PantryItem.new(params)
           p.user = @curr_user
           p.save
@@ -144,7 +146,7 @@ module Pantry
 
         app.get base, &index
         app.get base + '/:id', &show
-        app.post base, allows: [:name, :quantity, :description, :expiration_date, :show_public, :portion], &create
+        app.post base, allows: [:name, :quantity, :description, :expiration_date, :show_public, :portion, :ingredients], &create
         app.post base + '/:id', allows: [:name, :description, :expiration_date, :show_public, :portion], &update
         app.delete base + '/:id', &delete
         app.post base + '/:id/consume', allows: [:quantity, :id], &consume
