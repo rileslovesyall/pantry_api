@@ -166,7 +166,7 @@ class PantryAPI < Sinatra::Base
 
   # dummy index route
   get "/" do
-    return @curr_user.to_json
+    return "A thing"
     # turn into API docs?
   end
 
