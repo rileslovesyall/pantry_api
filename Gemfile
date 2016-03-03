@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
-ruby '2.2.4'
+ruby '2.2.4', :group => :production
+ruby '2.2.3', :group => :development
 
 # core sinatra gems
 gem 'rack'
