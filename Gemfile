@@ -31,9 +31,9 @@ gem 'sinatra-strong-params'
 # Amazon SDK
 gem 'aws-sdk', '~> 2'
 
-group :production do
-  gem 'puma'
-end
+# group :production do
+#   # gem 'puma'
+# end
 
 
 group :test do
