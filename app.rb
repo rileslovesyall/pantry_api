@@ -134,6 +134,13 @@ class PantryAPI < Sinatra::Base
     content_type :json
   end
 
+  # dummy index route
+  get "/" do
+    "Hello, world."
+    # turn into API docs?
+  end
+  
+
   before '/api/v1/*'  do
     unless params[:splat] == ['token'] || params[:splat] == ['unauthenticated'] || params[:splat] == ['users']
         # binding.pry
@@ -163,12 +170,6 @@ class PantryAPI < Sinatra::Base
   end
 
   register Pantry::Controller::Users
-
-  # dummy index route
-  get "/" do
-    return "A thing"
-    # turn into API docs?
-  end
 
   #
   # UNAUTHENTICATED WARDEN ROUTE
