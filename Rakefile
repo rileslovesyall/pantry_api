@@ -31,11 +31,11 @@ begin
 rescue LoadError
 end
 
-# namespace :db do
-#   task :load_config do
-#     require "./app"
-#   end
-# end
+namespace :db do
+  task :load_config do
+    require "./app"
+  end
+end
 
 # namespace :spec do
 #   begin
