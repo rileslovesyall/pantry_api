@@ -140,6 +140,10 @@ class PantryAPI < Sinatra::Base
     # turn into API docs?
   end
 
+  get '/api/v1/health' do
+    "Yep, I'm healthy."
+  end
+
 
   before '/api/v1/*'  do
     unless params[:splat] == ['token'] || params[:splat] == ['unauthenticated'] || params[:splat] == ['users']
