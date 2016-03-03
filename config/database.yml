@@ -11,7 +11,8 @@ test:
   username: root
 
 production:
-  adapter: postgresql
-  database: application_prd
-  pool: 5
-  username: pantry_admin
+database: ENV['RDS_DB_NAME']
+ username: ENV['RDS_USERNAME']
+ password: ENV['RDS_PASSWORD']
+ hostname: ENV['RDS_HOSTNAME']
+ port: ENV['RDS_PORT']
