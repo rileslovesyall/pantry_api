@@ -30,7 +30,6 @@ module Pantry
         end
 
         create = lambda do
-          # binding.pry
           p = PantryItem.new(params)
           p.user = @curr_user
           p.save
@@ -38,7 +37,6 @@ module Pantry
           if p.save
             content_type :json
             status 200 
-            binding.pry
             return {
               message: "Your item has been created",
               pantryitem: p
