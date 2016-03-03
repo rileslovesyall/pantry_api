@@ -139,13 +139,11 @@ class PantryAPI < Sinatra::Base
     "Hello, world."
     # turn into API docs?
   end
-  
+
 
   before '/api/v1/*'  do
     unless params[:splat] == ['token'] || params[:splat] == ['unauthenticated'] || params[:splat] == ['users']
-        # binding.pry
         @curr_user = env['warden'].authenticate!(:access_token)
-        # binding.pry
     end
   end
 
