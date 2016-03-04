@@ -1,4 +1,4 @@
-class Add-exp-info-to-users < ActiveRecord::Migration
+class AddExpInfoToUsers < ActiveRecord::Migration
   def change
   end
 end
