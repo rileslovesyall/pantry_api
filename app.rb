@@ -9,7 +9,6 @@ require 'json'
 require 'warden'
 require 'sinatra/strong-params'
 # require 'aws-ses'
-require 'dotenv'
 
 require 'pry'
 
@@ -34,18 +33,17 @@ class PantryAPI < Sinatra::Base
     enable :logging
   end
 
+  configure :development, :test do
+    require 'dotenv'
+    Dotenv.load
+  end
+
   #
   # HELPFUL EXTRA STUFF
   #
 
   register Sinatra::ActiveRecordExtension
   register Sinatra::StrongParams
-
-  # 
-  # SET UP AMAZON SES
-  # 
-
-  Dotenv.load
 
   #
   # MIDDLEWARE
