@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.2.4', :group => :production
-# ruby '2.2.3', :group => :development
+ruby '2.2.4'
 
 # core sinatra gems
 gem 'rack'
@@ -23,14 +22,14 @@ gem 'json'
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'bcrypt', '~> 3.1.2'
-# gem 'jwt'
 gem 'warden'
 
 # For dem strong params
 gem 'sinatra-strong-params'
 
-# Amazon SDK
+# Amazon SDK / SES
 gem 'aws-sdk', '~> 2'
+gem "aws-ses", "~> 0.6.0", :require => 'aws/ses'
 
 # group :production do
 #   # gem 'puma'

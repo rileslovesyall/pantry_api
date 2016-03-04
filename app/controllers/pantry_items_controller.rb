@@ -58,7 +58,6 @@ module Pantry
           requester_must_own_pantry_item
           ingredients = params['ingredients'].split(',')
           params.delete('ingredients')
-          binding.pry
           @p.update(params)
           ingredients.each do |ing|
             i = Ingredient.find_or_create({name: ing})

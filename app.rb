@@ -8,7 +8,10 @@ require 'sinatra/contrib/all'
 require 'json'
 require 'warden'
 require 'sinatra/strong-params'
-# require 'pry'
+# require 'aws-ses'
+require 'dotenv'
+
+require 'pry'
 
 
 Bundler.setup
@@ -37,6 +40,18 @@ class PantryAPI < Sinatra::Base
 
   register Sinatra::ActiveRecordExtension
   register Sinatra::StrongParams
+
+  # 
+  # SET UP AMAZON SES
+  # 
+
+  Dotenv.load
+
+  ses = AWS::SES::Base.new(
+    :access_key_id => ENV['AWS_KEY'],
+    :secret_access_key => ENV['AWS_SECRET'],
+    :server => 'email.us-west-2.amazonaws.com'
+  )
 
   #
   # MIDDLEWARE

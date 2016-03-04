@@ -14,6 +14,12 @@ module Pantry
           # binding.pry
           if u.save
             u.reload
+            ses.send_email(
+              :to        => u.email,
+              :source    => 'riley.r.spicer@gmail.com',
+              :subject   => "Welcome to Pocket Pantry.",
+              :text_body => "Welcoming you."
+            )
             status 200
             return {
               message: "User has been created.",
