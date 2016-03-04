@@ -56,7 +56,15 @@ module Pantry
 
         update = lambda do
           requester_must_own_pantry_item
+          ingredients = params['ingredients'].split(',')
+          params.delete('ingredients')
           @p.update(params)
+          ingredients.each do |ing|
+            i = Ingredient.find_or_create({name: ing})
+            if !p.ingredients.include?(i)
+              p.ingredients << i
+            end
+          end
           if @p.save
             return {
               message: "Your item as been updated.",
@@ -150,7 +158,7 @@ module Pantry
         app.get base, &index
         app.get base + '/:id', &show
         app.post base, allows: [:name, :quantity, :description, :expiration_date, :show_public, :portion, :ingredients], &create
-        app.post base + '/:id', allows: [:name, :description, :expiration_date, :show_public, :portion], &update
+        app.post base + '/:id', allows: [:name, :description, :expiration_date, :show_public, :portion, :ingredients], &update
         app.delete base + '/:id', &delete
         app.post base + '/:id/consume', allows: [:quantity, :id], &consume
         app.post base + '/:id/add', allows: [:quantity, :id], &add
