@@ -47,12 +47,6 @@ class PantryAPI < Sinatra::Base
 
   Dotenv.load
 
-  ses = AWS::SES::Base.new(
-    :access_key_id => ENV['AWS_KEY'],
-    :secret_access_key => ENV['AWS_SECRET'],
-    :server => 'email.us-west-2.amazonaws.com'
-  )
-
   #
   # MIDDLEWARE
   #

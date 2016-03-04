@@ -14,6 +14,11 @@ module Pantry
           # binding.pry
           if u.save
             u.reload
+            ses = AWS::SES::Base.new(
+              :access_key_id => ENV['AWS_KEY'],
+              :secret_access_key => ENV['AWS_SECRET'],
+              :server => 'email.us-west-2.amazonaws.com'
+            )
             ses.send_email(
               :to        => u.email,
               :source    => 'riley.r.spicer@gmail.com',
@@ -23,7 +28,7 @@ module Pantry
             status 200
             return {
               message: "User has been created.",
-              user: u
+              user: u [except]
               }.to_json
           elsif !User.where(email: params['email']).nil?
             status 400 
