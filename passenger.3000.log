@@ -1,0 +1,38 @@
+[ 2016-03-04 13:58:48.3452 69872/0x7fff7a938300 age/Wat/WatchdogMain.cpp:1276 ]: Starting Passenger watchdog...
+[ 2016-03-04 13:58:48.3627 69874/0x7fff7a938300 age/Cor/CoreMain.cpp:982 ]: Starting Passenger core...
+[ 2016-03-04 13:58:48.3634 69874/0x7fff7a938300 age/Cor/CoreMain.cpp:235 ]: Passenger core running in multi-application mode.
+[ 2016-03-04 13:58:48.3718 69874/0x7fff7a938300 age/Cor/CoreMain.cpp:732 ]: Passenger core online, PID 69874
+[ 2016-03-04 13:58:48.3795 69876/0x7fff7a938300 age/Ust/UstRouterMain.cpp:529 ]: Starting Passenger UstRouter...
+[ 2016-03-04 13:58:48.3804 69876/0x7fff7a938300 age/Ust/UstRouterMain.cpp:342 ]: Passenger UstRouter online, PID 69876
+App 69888 stdout: 
+App 69901 stdout: 
+App 69888 stderr: 127.0.0.1 - - [04/Mar/2016:13:59:01 -0800] "HEAD / HTTP/1.1" 200 13 0.0046
+App 69888 stderr: 127.0.0.1 - - [04/Mar/2016:14:06:31 -0800] "GET / HTTP/1.1" 200 13 0.0230
+App 69888 stderr: 127.0.0.1 - - [04/Mar/2016:14:06:32 -0800] "GET /favicon.ico HTTP/1.1" 404 512 0.0045
+App 69888 stderr: 127.0.0.1 - - [04/Mar/2016:14:13:00 -0800] "POST /api/v1/token HTTP/1.1" 200 136 0.3242
+App 69888 stderr: 127.0.0.1 - - [04/Mar/2016:14:13:00 -0800] "OPTIONS /api/v1/users/1/personal_pantry HTTP/1.1" 200 - 0.0005
+App 69888 stderr: 127.0.0.1 - - [04/Mar/2016:14:13:00 -0800] "GET /api/v1/users/1/personal_pantry HTTP/1.1" 200 552 0.0479
+App 69888 stderr: 127.0.0.1 - - [04/Mar/2016:14:22:11 -0800] "GET /api/v1/users/1/personal_pantry HTTP/1.1" 200 552 0.0045
+
+[ 2016-03-04 14:39:37.6776 69874/0x109868000 age/Cor/CoreMain.cpp:532 ]: Signal received. Gracefully shutting down... (send signal 2 more time(s) to force shutdown)
+[ 2016-03-04 14:39:37.6878 69874/0x7fff7a938300 age/Cor/CoreMain.cpp:901 ]: Received command to shutdown gracefully. Waiting until all clients have disconnected...
+
+[ 2016-03-04 14:39:37.6879 69876/0x107283000 age/Ust/UstRouterMain.cpp:422 ]: Signal received. Gracefully shutting down... (send signal 2 more time(s) to force shutdown)
+[ 2016-03-04 14:39:37.6881 69874/0x7fff7a938300 age/Cor/CoreMain.cpp:819 ]: Checking whether to disconnect long-running connections for process 69901, application /Users/rileypants/dev/capstone/pantry_api/public (development)
+[ 2016-03-04 14:39:37.6881 69876/0x7fff7a938300 age/Ust/UstRouterMain.cpp:492 ]: Received command to shutdown gracefully. Waiting until all clients have disconnected...
+[ 2016-03-04 14:39:37.6887 69874/0x109868000 Ser/Server.h:816 ]: [ServerThr.1] Freed 128 spare client objects
+[ 2016-03-04 14:39:37.6888 69874/0x109868000 Ser/Server.h:464 ]: [ServerThr.1] Shutdown finished
+[ 2016-03-04 14:39:37.6887 69874/0x109a74000 Ser/Server.h:816 ]: [ServerThr.3] Freed 128 spare client objects
+[ 2016-03-04 14:39:37.6888 69874/0x109a74000 Ser/Server.h:464 ]: [ServerThr.3] Shutdown finished
+[ 2016-03-04 14:39:37.6887 69874/0x10996e000 Ser/Server.h:816 ]: [ServerThr.2] Freed 128 spare client objects
+[ 2016-03-04 14:39:37.6888 69874/0x10996e000 Ser/Server.h:464 ]: [ServerThr.2] Shutdown finished
+[ 2016-03-04 14:39:37.6889 69874/0x109b7a000 Ser/Server.h:816 ]: [ServerThr.4] Freed 128 spare client objects
+[ 2016-03-04 14:39:37.6890 69874/0x109b7a000 Ser/Server.h:464 ]: [ServerThr.4] Shutdown finished
+[ 2016-03-04 14:39:37.6889 69876/0x107283000 Ser/Server.h:464 ]: [UstRouter] Shutdown finished
+[ 2016-03-04 14:39:37.6889 69876/0x107389000 Ser/Server.h:816 ]: [UstRouterApiServer] Freed 0 spare client objects
+[ 2016-03-04 14:39:37.6892 69876/0x107389000 Ser/Server.h:464 ]: [UstRouterApiServer] Shutdown finished
+[ 2016-03-04 14:39:37.6895 69874/0x109c80000 Ser/Server.h:816 ]: [ApiServer] Freed 0 spare client objects
+[ 2016-03-04 14:39:37.6895 69874/0x109c80000 Ser/Server.h:464 ]: [ApiServer] Shutdown finished
+[ 2016-03-04 14:39:37.6901 69874/0x7fff7a938300 age/Cor/CoreMain.cpp:819 ]: Checking whether to disconnect long-running connections for process 69901, application /Users/rileypants/dev/capstone/pantry_api/public (development)
+[ 2016-03-04 14:39:37.6902 69876/0x7fff7a938300 age/Ust/UstRouterMain.cpp:523 ]: Passenger UstRouter shutdown finished
+[ 2016-03-04 14:39:37.9247 69874/0x7fff7a938300 age/Cor/CoreMain.cpp:967 ]: Passenger core shutdown finished

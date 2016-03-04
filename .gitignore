@@ -1,5 +1,8 @@
 .env
 /coverage/*
+configuration.cnf
+private-key.pem
+certificate.pem
 
 
 # Elastic Beanstalk Files

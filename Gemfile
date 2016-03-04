@@ -23,6 +23,7 @@ gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'bcrypt', '~> 3.1.2'
 gem 'warden'
+gem 'passenger'
 
 # For dem strong params
 gem 'sinatra-strong-params'
@@ -30,10 +31,6 @@ gem 'sinatra-strong-params'
 # Amazon SDK / SES
 gem 'aws-sdk', '~> 2'
 gem "aws-ses", "~> 0.6.0", :require => 'aws/ses'
-
-# group :production do
-#   # gem 'puma'
-# end
 
 
 group :test do

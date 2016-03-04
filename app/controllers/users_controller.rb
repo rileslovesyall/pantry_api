@@ -26,7 +26,7 @@ module Pantry
               :to        => u.email,
               :source    => 'riley.r.spicer@gmail.com',
               :subject   => "Welcome to Pocket Pantry.",
-              :text_body => "Welcoming you."
+              :text_body => "Welcome, #{u.name}. You can start logging your pantry now by logging in at http://rileyrileyrose.github.io/coolest_pantry/"
             )
             status 200
             return {user: u}.to_json(except: [:password_digest])
@@ -88,6 +88,8 @@ module Pantry
           status 200
           return {pantry_items: p}.to_json
         end
+
+
 
         base = '/api/v1/users'
 
