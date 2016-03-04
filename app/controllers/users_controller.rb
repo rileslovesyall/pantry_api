@@ -2,7 +2,9 @@ module Pantry
   module Controller
     module Users
 
-      Dotenv.load
+      if defined? Dotenv
+        Dotenv.load
+      end
 
       SES = AWS::SES::Base.new(
         :access_key_id => ENV['AWS_KEY'],

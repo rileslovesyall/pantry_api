@@ -10,8 +10,6 @@ require 'warden'
 require 'sinatra/strong-params'
 # require 'aws-ses'
 
-require 'pry'
-
 
 Bundler.setup
 Bundler.require(:default, ENV["RACK_ENV"].to_sym)
@@ -35,6 +33,7 @@ class PantryAPI < Sinatra::Base
 
   configure :development, :test do
     require 'dotenv'
+    require 'pry'
     Dotenv.load
   end
 
