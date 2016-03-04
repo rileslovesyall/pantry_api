@@ -37,22 +37,22 @@ namespace :db do
   end
 end
 
-namespace :spec do
-  begin
-    desc 'Run all model tests'
-    RSpec::Core::RakeTask.new(:models) do |t|
-      t.pattern = 'spec/models/**/*_spec.rb'
-      t.rspec_opts = [ '--backtrace', '--colour', '-fd']
-    end
-  rescue LoadError
-  end
+# namespace :spec do
+#   begin
+#     desc 'Run all model tests'
+#     RSpec::Core::RakeTask.new(:models) do |t|
+#       t.pattern = 'spec/models/**/*_spec.rb'
+#       t.rspec_opts = [ '--backtrace', '--colour', '-fd']
+#     end
+#   rescue LoadError
+#   end
 
-  begin
-    desc 'Run all route tests'
-    RSpec::Core::RakeTask.new(:routes) do |t|
-      t.pattern = 'spec/routes/**/*_spec.rb'
-      t.rspec_opts = [ '--backtrace', '--colour', '-fd']
-    end
-  rescue LoadError
-  end
-end
+#   begin
+#     desc 'Run all route tests'
+#     RSpec::Core::RakeTask.new(:routes) do |t|
+#       t.pattern = 'spec/routes/**/*_spec.rb'
+#       t.rspec_opts = [ '--backtrace', '--colour', '-fd']
+#     end
+#   rescue LoadError
+#   end
+# end
