@@ -2,6 +2,14 @@ module Pantry
   module Controller
     module Users
 
+      Dotenv.load
+
+      SES = AWS::SES::Base.new(
+        :access_key_id => ENV['AWS_KEY'],
+        :secret_access_key => ENV['AWS_SECRET'],
+        :server => 'email.us-west-2.amazonaws.com'
+      )
+
       def self.registered(app)
 
         show = lambda do
@@ -14,22 +22,14 @@ module Pantry
           # binding.pry
           if u.save
             u.reload
-            ses = AWS::SES::Base.new(
-              :access_key_id => ENV['AWS_KEY'],
-              :secret_access_key => ENV['AWS_SECRET'],
-              :server => 'email.us-west-2.amazonaws.com'
-            )
-            ses.send_email(
+            SES.send_email(
               :to        => u.email,
               :source    => 'riley.r.spicer@gmail.com',
               :subject   => "Welcome to Pocket Pantry.",
               :text_body => "Welcoming you."
             )
             status 200
-            return {
-              message: "User has been created.",
-              user: u [except]
-              }.to_json
+            return {user: u}.to_json(except: [:password_digest])
           elsif !User.where(email: params['email']).nil?
             status 400 
             return {error: "A user with this e-mail address already exists."}.to_json
@@ -45,10 +45,7 @@ module Pantry
             status 200
             return {
               message: "Your user information has been updated.",
-              user: {
-                name: @u.name,
-                email: @u.email
-                }
+              user: @u.to_json(except: [:password_digest])
               }.to_json
           else
             status 500
@@ -99,7 +96,7 @@ module Pantry
         app.get base + '/:id/personal_pantry', &personal_pantry
         app.get base + '/:id/private_pantry', &private_pantry
         app.get base + '/:id', &show
-        app.post base + '/:id', allows: [:email, :name], &update
+        app.post base + '/:id', allows: [:email, :name, :exp_pref], &update
         app.delete base + '/:id', &delete
 
       end
