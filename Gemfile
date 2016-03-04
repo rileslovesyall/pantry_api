@@ -23,7 +23,6 @@ gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'bcrypt', '~> 3.1.2'
 gem 'warden'
-gem 'passenger', '~> 4.0.59'
 
 # For dem strong params
 gem 'sinatra-strong-params'
@@ -48,4 +47,5 @@ group :development, :test do
   gem 'binding_of_caller'
   gem 'pry'
   gem 'rake-notes'
+  gem 'passenger', '~> 4.0.59'
 end
