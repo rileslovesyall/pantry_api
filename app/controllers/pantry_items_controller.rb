@@ -30,12 +30,15 @@ module Pantry
         end
 
         create = lambda do
-          ingredients = params['ingredients']
+          ingredients = params['ingredients'].split(',')
           params.delete('ingredients')
           p = PantryItem.new(params)
           p.user = @curr_user
+          ingredients.each do |ing|
+            i = Ingredient.find_or_create({name: ing})
+            p.ingredients << i
+          end
           p.save
-          # p.add_ingredients(params['ingredients'])
           if p.save
             content_type 'text/plain'
             status 200 

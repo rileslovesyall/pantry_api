@@ -7,8 +7,8 @@ class Ingredient < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name
 
-  def find_or_create(ing_hash)
-    i = Ingredient.find(name: ing_hash[:name])
+  def self.find_or_create(ing_hash)
+    i = Ingredient.find_by(name: ing_hash[:name])
     if i
       return i
     else
