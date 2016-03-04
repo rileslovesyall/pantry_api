@@ -23,7 +23,7 @@ gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'bcrypt', '~> 3.1.2'
 gem 'warden'
-gem 'passenger'
+gem 'passenger', '~> 4.0.59'
 
 # For dem strong params
 gem 'sinatra-strong-params'
