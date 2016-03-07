@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160301214905) do
+ActiveRecord::Schema.define(version: 20160304213026) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20160301214905) do
     t.integer "pantry_item_id"
     t.string  "action"
     t.integer "quantity"
+    t.string  "exp_date"
   end
 
   create_table "pantry_items", force: :cascade do |t|
@@ -46,18 +47,20 @@ ActiveRecord::Schema.define(version: 20160301214905) do
     t.text    "description"
     t.integer "quantity"
     t.integer "user_id"
-    t.string  "expiration_date"
-    t.boolean "show_public",     default: true
+    t.boolean "show_public", default: true
     t.string  "portion"
+    t.string  "days_to_exp"
   end
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.string   "password_digest"
     t.string   "api_token"
+    t.boolean  "exp_notif",       default: true
+    t.integer  "exp_time",        default: 14
   end
 
 end

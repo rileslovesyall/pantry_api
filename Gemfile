@@ -29,7 +29,10 @@ gem 'sinatra-strong-params'
 
 # Amazon SDK / SES
 gem 'aws-sdk', '~> 2'
-gem "aws-ses", "~> 0.6.0", :require => 'aws/ses'
+gem 'aws-ses', "~> 0.6.0", :require => 'aws/ses'
+
+# To set cron jobs
+gem 'whenever'
 
 
 group :test do

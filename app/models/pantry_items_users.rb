@@ -1,3 +1,5 @@
+require 'aws/ses'
+
 class PantryItemUser < ActiveRecord::Base
   belongs_to :pantry_item
   belongs_to :user
@@ -5,6 +7,18 @@ class PantryItemUser < ActiveRecord::Base
   validates_presence_of :action, :quantity
 
   before_create :act_on_action
+  after_create :set_expiration
+
+  SES = AWS::SES::Base.new(
+    :access_key_id => ENV['AWS_KEY'],
+    :secret_access_key => ENV['AWS_SECRET'],
+    :server => 'email.us-west-2.amazonaws.com'
+  )
+
+  def send_expiration_email
+    exp_soon = PantryItemUser.where("expiration_date < ?", Time.now + 2)
+    puts exp_soon
+  end
 
   private
 
@@ -20,7 +34,11 @@ class PantryItemUser < ActiveRecord::Base
         raise "You don't have enough of this item to consume!"
       end
     end
+  end
 
+  def set_expiration
+    self.exp_date = DateTime.now + (self.pantry_item.days_to_exp).to_i
+    self.save
   end
 
 end
