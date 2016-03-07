@@ -20,8 +20,9 @@ class PantryItemUser < ActiveRecord::Base
     puts exp_soon
   end
 
-  def self.expiring_soon
-    
+  def self.expiring_soon(user_id)
+    days = User.find(user_id).exp_soon_days
+    return  PantryItemUser.where("user_id = ? AND exp_date < ?", user_id, DateTime.now + days)
   end
 
   private
