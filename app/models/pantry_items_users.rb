@@ -1,19 +1,6 @@
-require 'aws/ses'
-
 class PantryItemsUser < ActiveRecord::Base
-  has_many :pantry_items
-  has_many :users
-
-  SES = AWS::SES::Base.new(
-    :access_key_id => ENV['AWS_KEY'],
-    :secret_access_key => ENV['AWS_SECRET'],
-    :server => 'email.us-west-2.amazonaws.com'
-  )
-
-  def send_expiration_email
-    exp_soon = self.where("expiration_date < ?", Time.now + 2)
-    puts exp_soon
-  end
+  belongs_to :pantry_item
+  belongs_to :user
 
   def self.expiring_soon(user_id)
     days = User.find(user_id).exp_soon_days

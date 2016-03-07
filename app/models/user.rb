@@ -39,4 +39,28 @@ class User < ActiveRecord::Base
     # TODO make this a thing
   end
 
+  def self.send_expiration_emails
+    ses = AWS::SES::Base.new(
+      :access_key_id => ENV['AWS_KEY'],
+      :secret_access_key => ENV['AWS_SECRET'],
+      :server => 'email.us-west-2.amazonaws.com'
+    )
+    self.all.each do |user|
+      exp_soon = PantryItemsUser.expiring_soon(user.id)
+      exp_html = ""
+      if exp_soon.length > 0
+        exp_soon.each do |exp_item|
+          item = exp_item.pantry_item
+          exp_html += "#{item.name} is expiring soon. <br>"
+        end
+        ses.send_email(
+          :to        => user.email,
+          :source    => '"Pocket Pantry" <riley.r.spicer@gmail.com>',
+          :subject   => "You have items expiring soon!",
+          :html_body => exp_html
+        )
+      end
+    end
+  end
+
 end

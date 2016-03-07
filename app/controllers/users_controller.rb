@@ -6,12 +6,6 @@ module Pantry
         Dotenv.load
       end
 
-      SES = AWS::SES::Base.new(
-        :access_key_id => ENV['AWS_KEY'],
-        :secret_access_key => ENV['AWS_SECRET'],
-        :server => 'email.us-west-2.amazonaws.com'
-      )
-
       def self.registered(app)
 
         show = lambda do
@@ -24,11 +18,17 @@ module Pantry
           # binding.pry
           if u.save
             u.reload
-            SES.send_email(
+
+            ses = AWS::SES::Base.new(
+              :access_key_id => ENV['AWS_KEY'],
+              :secret_access_key => ENV['AWS_SECRET'],
+              :server => 'email.us-west-2.amazonaws.com'
+            )
+            ses.send_email(
               :to        => u.email,
               :source    => 'riley.r.spicer@gmail.com',
               :subject   => "Welcome to Pocket Pantry.",
-              :text_body => "Welcome, #{u.name}. You can start logging your pantry now by logging in at http://rileyrileyrose.github.io/coolest_pantry/"
+              :html_body => "<h2>Welcome, #{u.name}.</h2> <p>You can start logging your pantry now by logging in at www.pocketpantry.org</p>"
             )
             status 200
             return {user: u}.to_json(except: [:password_digest])
