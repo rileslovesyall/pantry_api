@@ -22,13 +22,6 @@ ActiveRecord::Schema.define(version: 20160307201646) do
     t.text   "description"
   end
 
-  create_table "pantry", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "pantry_item_id"
-    t.integer "quantity"
-    t.string  "exp_date"
-  end
-
   create_table "pantry_item_categories", force: :cascade do |t|
     t.integer "pantry_item_id"
     t.integer "category_id"
@@ -41,13 +34,6 @@ ActiveRecord::Schema.define(version: 20160307201646) do
     t.integer "quantity"
   end
 
-  create_table "pantry_item_users", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "pantry_item_id"
-    t.string  "action"
-    t.integer "quantity"
-  end
-
   create_table "pantry_items", force: :cascade do |t|
     t.string  "name"
     t.text    "description"
@@ -57,6 +43,20 @@ ActiveRecord::Schema.define(version: 20160307201646) do
     t.boolean "show_public",     default: true
     t.string  "portion"
     t.string  "days_to_exp"
+  end
+
+  create_table "pantry_items_user_logs", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "pantry_item_id"
+    t.string  "action"
+    t.integer "quantity"
+  end
+
+  create_table "pantry_items_users", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "pantry_item_id"
+    t.integer "quantity"
+    t.string  "exp_date"
   end
 
   create_table "users", force: :cascade do |t|

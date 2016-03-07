@@ -106,7 +106,7 @@ module Pantry
             return {error: "You must provide a quantity."}.to_json
           end
           begin
-            PantryItemUser.create({
+            PantryItemsUserLog.create({
               user_id: @curr_user.id,
               pantry_item_id: @p.id,
               quantity: params["quantity"],
@@ -134,7 +134,7 @@ module Pantry
             status 400
             return {error: "You must provide a quantity."}.to_json
           end
-          add = PantryItemUser.create({
+          add = PantryItemsUserLog.create({
             user_id: @curr_user.id,
             pantry_item_id: @p.id,
             quantity: params['quantity'],

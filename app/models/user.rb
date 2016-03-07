@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   include BCrypt  
   has_many :pantry_items
   has_many :recipes
-  has_many :pantry_item_users
+  has_many :pantry_items_user_logs
 
   has_secure_password
 

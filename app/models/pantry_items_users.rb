@@ -1,13 +1,12 @@
 require 'aws/ses'
 
-class PantryItemUser < ActiveRecord::Base
+class PantryItemsUserLog < ActiveRecord::Base
   belongs_to :pantry_item
   belongs_to :user
 
   validates_presence_of :action, :quantity
 
   before_create :act_on_action
-  after_create :set_expiration
 
   SES = AWS::SES::Base.new(
     :access_key_id => ENV['AWS_KEY'],
