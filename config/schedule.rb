@@ -19,6 +19,8 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every 1.day do
+set :output, "log/cron.log"
+
+every 1.day, :at => '3:40 pm' do
   runner "User.send_expiration_emails"
 end
