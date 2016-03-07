@@ -1,12 +1,8 @@
 require 'aws/ses'
 
-class PantryItemsUserLog < ActiveRecord::Base
-  belongs_to :pantry_item
-  belongs_to :user
-
-  validates_presence_of :action, :quantity
-
-  before_create :act_on_action
+class PantryItemsUser < ActiveRecord::Base
+  has_many :pantry_items
+  has_many :users
 
   SES = AWS::SES::Base.new(
     :access_key_id => ENV['AWS_KEY'],
@@ -15,36 +11,31 @@ class PantryItemsUserLog < ActiveRecord::Base
   )
 
   def send_expiration_email
-    exp_soon = PantryItemUser.where("expiration_date < ?", Time.now + 2)
+    exp_soon = self.where("expiration_date < ?", Time.now + 2)
     puts exp_soon
   end
 
   def self.expiring_soon(user_id)
     days = User.find(user_id).exp_soon_days
-    return  PantryItemUser.where("user_id = ? AND exp_date < ?", user_id, DateTime.now + days)
+    return  self.where("user_id = ? AND exp_date < ?", user_id, DateTime.now + days)
   end
 
-  private
-
-  def act_on_action
-    if self.action == 'add'
-        self.pantry_item.quantity += self.quantity
-        self.pantry_item.save
-    elsif self.action == 'consume'
-      if self.pantry_item.quantity >= self.quantity
-        self.pantry_item.quantity -= self.quantity
-        self.pantry_item.save
-      else
-        raise "You don't have enough of this item to consume!"
+  def self.consume(pantry_item_id, quant)
+    if self.where("pantry_item_id = ?", pantry_item_id)
+      p = self.where("pantry_item_id = ?", pantry_item_id).order(exp_date: :asc).first
+      if p.quantity > quant
+        p.quantity -= quant
+        p.save
+      elsif p.quantity == quant
+        p.delete
+      elsif p.quantity < quant
+        new_quant = quant - p.quantity
+        self.consume(pantry_item_id, new_quant)
       end
+    else
+      raise "You don't have enough of this item to consume!"
     end
   end
 
-  def set_expiration
-    if self.action == 'add' || self.action == 'init'
-      self.exp_date = DateTime.now + (self.pantry_item.days_to_exp).to_i
-      self.save
-    end
-  end
 
 end
