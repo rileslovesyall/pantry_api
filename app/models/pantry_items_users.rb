@@ -20,6 +20,10 @@ class PantryItemUser < ActiveRecord::Base
     puts exp_soon
   end
 
+  def self.expiring_soon
+    
+  end
+
   private
 
   def act_on_action
@@ -37,8 +41,10 @@ class PantryItemUser < ActiveRecord::Base
   end
 
   def set_expiration
-    self.exp_date = DateTime.now + (self.pantry_item.days_to_exp).to_i
-    self.save
+    if self.action == 'add' || self.action == 'init'
+      self.exp_date = DateTime.now + (self.pantry_item.days_to_exp).to_i
+      self.save
+    end
   end
 
 end
