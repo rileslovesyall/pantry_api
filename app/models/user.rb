@@ -73,7 +73,7 @@ class User < ActiveRecord::Base
       :to        => 'riley.r.spicer@gmail.com',
       :source    => '"Pocket Pantry" <riley.r.spicer@gmail.com>',
       :subject   => "It's working",
-      :html_body => "A thing."
+      :html_body => "Cron test."
     )
   end
 
