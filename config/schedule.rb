@@ -6,6 +6,6 @@ every 1.day, :at => '8:00 am' do
   rake 'cron:expiration_emails'
 end
 
-every 1.minute do
-  rake 'cron:test'
-end
+# every 1.minute do
+#   rake 'cron:test'
+# end
