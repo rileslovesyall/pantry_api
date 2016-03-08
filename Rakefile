@@ -59,3 +59,14 @@ if defined? RSpec
     end
   end
 end
+
+namespace :cron do
+  task :expiration_emails do
+    require "./app"
+    User.send_expiration_emails
+  end
+  task :test do
+    require "./app"
+    User.cron_test
+  end
+end

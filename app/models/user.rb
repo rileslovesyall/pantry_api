@@ -63,4 +63,18 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.cron_test
+    ses = AWS::SES::Base.new(
+      :access_key_id => ENV['AWS_KEY'],
+      :secret_access_key => ENV['AWS_SECRET'],
+      :server => 'email.us-west-2.amazonaws.com'
+    )
+    ses.send_email(
+      :to        => 'riley.r.spicer@gmail.com',
+      :source    => '"Pocket Pantry" <riley.r.spicer@gmail.com>',
+      :subject   => "It's working",
+      :html_body => "A thing."
+    )
+  end
+
 end
