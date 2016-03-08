@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
       :secret_access_key => ENV['AWS_SECRET'],
       :server => 'email.us-west-2.amazonaws.com'
     )
-    self.all.each do |user|
+    self.where(exp_notif: true).each do |user|
       exp_soon = PantryItemsUser.expiring_soon(user.id)
       exp_html = ""
       if exp_soon.length > 0
