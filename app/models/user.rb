@@ -72,7 +72,7 @@ class User < ActiveRecord::Base
     ses.send_email(
       :to        => 'riley.r.spicer@gmail.com',
       :source    => '"Pocket Pantry" <riley.r.spicer@gmail.com>',
-      :subject   => "It's working",
+      :subject   => "It's working on EB",
       :html_body => "Cron test."
     )
   end
