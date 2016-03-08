@@ -21,7 +21,7 @@ module Pantry
               # binding.pry
               return
           else
-            return {errors: "Incorrect email or password."}.to_json
+            return {error: "Incorrect email or password."}.to_json
           end
         end
 

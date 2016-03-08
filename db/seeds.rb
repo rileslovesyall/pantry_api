@@ -1,5 +1,5 @@
 users = [
-  {name: "Rick", email: "riley.r.spicer@gmail.com", password: "123", password_confirmation: "123", api_token: "pantryz0GH_fEfLryZxoo0OS0kkw"},
+  {name: "Rick", email: "rick@tinyrick.com", password: "123", password_confirmation: "123", api_token: "pantryz0GH_fEfLryZxoo0OS0kkw"},
   {name: "Morty", email: "riley.r.spicer@gmail.com", password: "123", password_confirmation: "123"},
   {name: "Bird Person", email: "bird@person.com", password: "123", password_confirmation: "123"}
 ]

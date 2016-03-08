@@ -47,12 +47,16 @@ class User < ActiveRecord::Base
     )
     self.where(exp_notif: true).each do |user|
       exp_soon = PantryItemsUser.expiring_soon(user.id)
-      exp_html = ""
+      exp_html = "<h1>Here's what need to get eaten:</h1>"
+      exp_html += "<ul>"
       if exp_soon.length > 0
         exp_soon.each do |exp_item|
           item = exp_item.pantry_item
-          exp_html += "#{item.name} is expiring soon. <br>"
+          exp_html += "<li>#{item.quantity} #{item.portion}(s) of #{item.name}</li>"
         end
+        exp_html += "</ul>"
+        exp_html += "<p>Make something delicious with your food before it goes bad! And remember, you can check out your list of what's expiring soon after you log in to <a href='www.pocketpantry.com'>Pocket Pantry</a>!</p>"
+        exp_html += "Happy Eating, from the Pocket Pantry team."
         ses.send_email(
           :to        => user.email,
           :source    => '"Pocket Pantry" <riley.r.spicer@gmail.com>',
