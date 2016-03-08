@@ -6,7 +6,7 @@ class PantryItem < ActiveRecord::Base
   has_many :pantry_item_categories
   has_many :categories, through: :pantry_item_categories
 
-  validates_presence_of :name, :quantity, :days_to_exp
+  validates_presence_of :name, :quantity, :portion, :days_to_exp
 
   after_create :create_log, :create_exp_join
 

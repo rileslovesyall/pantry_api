@@ -17,6 +17,8 @@ FactoryGirl.define do
   factory :pantry_item, class: PantryItem do
     name "Pickled Parakeets"
     quantity 3
+    portion "Quart"
+    days_to_exp 15
     association :user, factory: :user1, strategy: :build
   end
 
