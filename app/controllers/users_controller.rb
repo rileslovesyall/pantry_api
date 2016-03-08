@@ -94,8 +94,12 @@ module Pantry
         expiring_soon = lambda do
           requester_must_be_user
           exp = PantryItemsUser.expiring_soon(@curr_user.id)
+          exp_items = {}
+          exp.each do |e|
+            exp_items[:exp_item] = {exp: e['exp_date'], pantry_item: PantryItem.find(e['pantry_item_id'].to_i)}
+          end
           status 200
-          return {expiring: exp}.to_json
+          return exp_items.to_json
         end
 
 
