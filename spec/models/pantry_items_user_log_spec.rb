@@ -18,28 +18,27 @@ RSpec.describe PantryItemsUserLog, type: :model do
     context "when action is add" do
       before do
         @pi = create(:pi1)
+        @piu_length = PantryItemsUser.all.length
         @quant = @pi.quantity
         @p = create(:piul_add, pantry_item_id: @pi.id)
       end
-      fit "adds one to its pantry_item's quantity" do
+      it "adds one to its pantry_item's quantity" do
         expect(@p.pantry_item.quantity).to eq(@quant + 1)
       end
       it "makes a new PantryItemsUser" do
-        
-      end
-      it "sets PantryItemUser's exp date properly" do
-        
+        expect(PantryItemsUser.all.length).to eq(@piu_length + 1)
       end
     end
     context "when action is consume" do
       it "removes that amount from pantry_item quantity if available" do
-        
+        pi = create(:pi1)
+        quant = pi.quantity
+        p = create(:piul_consume, pantry_item_id: pi.id)
+        expect(p.pantry_item.quantity).to eq(quant - 1)
       end
-      # it "consumes that amount from PantryItemsUser.consume" do
-        
-      # end
       it "returns an error if quantity not available" do
-        
+        pi = create(:pi1, quantity: 1)
+        expect{create(:piul_consume, pantry_item_id: pi.id, quantity: 2)}.to raise_error("You don't have enough of this item to consume!")
       end
     end
   end
