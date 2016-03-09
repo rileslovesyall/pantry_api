@@ -22,7 +22,6 @@ class PantryItemsUser < ActiveRecord::Base
     else
       raise "You don't have enough of this item to consume!"
     end
-    binding.pry
   end
 
 

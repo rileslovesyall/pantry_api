@@ -11,7 +11,7 @@ class PantryItem < ActiveRecord::Base
   after_create :create_log, :create_exp_join
 
   def self.public
-    return self.where(show_public: true, consumed: false)
+    return self.where("show_public = ? AND quantity > ?", true, 0)
   end
 
   private

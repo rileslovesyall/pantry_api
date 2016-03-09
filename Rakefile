@@ -3,7 +3,6 @@ require 'bundler/setup'
 require 'fileutils'
 require 'logger'
 require 'sinatra/activerecord/rake'
-# require 'rspec'
 
 task :default do
   puts "Available tasks:"
@@ -27,7 +26,6 @@ begin
   desc 'Run all tests'
   RSpec::Core::RakeTask.new(:spec) do |t|
     t.pattern = 'spec/**/*_spec.rb'
-    t.rspec_opts = [ '--backtrace', '--colour', '-fd']
   end
 rescue LoadError
 end
