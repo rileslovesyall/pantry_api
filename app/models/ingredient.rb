@@ -7,7 +7,11 @@ class Ingredient < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name
 
+  after_create :downcase_name
+
   def self.find_or_create(ing_hash)
+    ing_hash[:name] = ing_hash[:name].downcase
+    # binding.pry
     i = Ingredient.find_by(name: ing_hash[:name])
     if i
       return i
@@ -20,6 +24,13 @@ class Ingredient < ActiveRecord::Base
         raise "There was an error creating this ingredient."
       end
     end
+  end
+
+  private
+
+  def downcase_name
+    self.name = self.name.downcase
+    self.save
   end
 
 end

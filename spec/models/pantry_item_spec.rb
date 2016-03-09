@@ -22,7 +22,7 @@ RSpec.describe PantryItem, type: :model do
   end
 
   describe ".public" do
-    fit "returns all pantryitems with show_public: true and quantity > 0" do
+    it "returns all pantryitems with show_public: true and quantity > 0" do
       p1 = create(:pi1)
       p2 = create(:pi2)
       p3 = create(:pi3)
