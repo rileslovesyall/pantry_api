@@ -16,8 +16,13 @@ RSpec.describe PantryItemsUserLog, type: :model do
   describe "#act_on_action" do
 
     context "when action is add" do
-      it "adds one to its pantry_item's quantity" do
-        
+      before do
+        @pi = create(:pi1)
+        @quant = @pi.quantity
+        @p = create(:piul_add, pantry_item_id: @pi.id)
+      end
+      fit "adds one to its pantry_item's quantity" do
+        expect(@p.pantry_item.quantity).to eq(@quant + 1)
       end
       it "makes a new PantryItemsUser" do
         

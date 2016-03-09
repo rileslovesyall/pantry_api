@@ -9,7 +9,9 @@ class PantryItemsUserLog < ActiveRecord::Base
   private
 
   def act_on_action
+    # binding.pry
     if self.action == 'add'
+      # binding.pry
         self.pantry_item.quantity += self.quantity
         self.pantry_item.save
         p = PantryItemsUser.create({
