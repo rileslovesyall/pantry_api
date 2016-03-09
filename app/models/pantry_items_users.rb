@@ -8,7 +8,7 @@ class PantryItemsUser < ActiveRecord::Base
   end
 
   def self.consume(pantry_item_id, quant)
-    if self.where("pantry_item_id = ?", pantry_item_id)
+    if self.where("pantry_item_id = ?", pantry_item_id).length > 0
       p = self.where("pantry_item_id = ?", pantry_item_id).order(exp_date: :asc).first
       if p.quantity > quant
         p.quantity -= quant
@@ -17,6 +17,7 @@ class PantryItemsUser < ActiveRecord::Base
         p.delete
       elsif p.quantity < quant
         new_quant = quant - p.quantity
+        p.delete
         self.consume(pantry_item_id, new_quant)
       end
     else

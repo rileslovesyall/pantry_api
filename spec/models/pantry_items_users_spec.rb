@@ -16,7 +16,10 @@ RSpec.describe PantryItemsUser, type: :model do
       
     end
     context "when there isn't enough of this item to consume" do
-      expect{PantryItemsUser.consume()}.to raise_error("You don't have enough of this item to consume!")
+      fit "throws an error" do
+        p = create(:pantry_item, quantity: 1)
+        expect{PantryItemsUser.consume(p.id, 2)}.to raise_error("You don't have enough of this item to consume!")
+      end
     end
   end
 
