@@ -132,6 +132,16 @@ class PantryAPI < Sinatra::Base
       @u = User.find(id)
     end
 
+    def exp_to_days(time_to_exp, exp_units)
+      if exp_units.downcase == 'years'
+        return time_to_exp * 365
+      elsif exp_units.downcase == 'months'
+        return time_to_exp * 30
+      elsif exp_units.downcase == 'days'
+        return time_to_exp
+      end
+    end
+
   end
 
   #
@@ -187,7 +197,6 @@ class PantryAPI < Sinatra::Base
   #
 
   post '/unauthenticated' do
-      raise
       content_type :json
       json({ message: "Sorry, this request can not be authenticated. Try again." })
   end

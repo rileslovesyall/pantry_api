@@ -33,7 +33,7 @@ module Pantry
             status 200
             return {user: u}.to_json(except: [:password_digest])
           elsif !User.where(email: params['email']).nil?
-            status 400 
+            # status 400 
             return {error: "A user with this e-mail address already exists."}.to_json
           else
             status 400
@@ -96,7 +96,14 @@ module Pantry
           exp = PantryItemsUser.expiring_soon(@curr_user.id)
           exp_items = []
           exp.each do |e|
-            exp_items << PantryItem.find(e['pantry_item_id'].to_i)
+            item = {}
+            pantry_item = PantryItem.find(e['pantry_item_id'].to_i)
+            item['id'] = pantry_item.id
+            item['name'] = pantry_item.name
+            item['portion'] = pantry_item.portion
+            item['quantity'] = e.quantity
+            item['exp_date'] = e.exp_date
+            exp_items << item
           end
           status 200
           return exp_items.to_json

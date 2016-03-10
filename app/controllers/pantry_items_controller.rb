@@ -32,24 +32,27 @@ module Pantry
         create = lambda do
           ingredients = params['ingredients'].split(',')
           params.delete('ingredients')
+          exp_time = params['time-to-exp']
+          params.delete('time-to-exp')
+          exp_unit = params['exp-unit']
+          params.delete('exp-unit')
           p = PantryItem.new(params)
           p.user = @curr_user
           ingredients.each do |ing|
             i = Ingredient.find_or_create({name: ing})
             p.ingredients << i
           end
+          p.days_to_exp = exp_to_days(exp_time, exp_unit)
           p.save
           if p.save
-            content_type 'text/plain'
             status 200 
             return {
               message: "Your item has been created",
               pantryitem: p
               }.to_json
           else
-            # TODO update status codes here
             status 400
-            return {errors: "Something went wrong, please try again."}.to_json
+            return {error: "Something went wrong, please try again."}.to_json
           end
 
         end
@@ -157,7 +160,7 @@ module Pantry
 
         app.get base, &index
         app.get base + '/:id', &show
-        app.post base, allows: [:name, :quantity, :description, :expiration_date, :show_public, :portion, :ingredients], &create
+        app.post base, allows: [:name, :quantity, :description, :expiration_date, :show_public, :portion, :ingredients, 'time-to-exp', 'exp-unit'], &create
         app.post base + '/:id', allows: [:name, :description, :expiration_date, :show_public, :portion, :ingredients], &update
         app.delete base + '/:id', &delete
         app.post base + '/:id/consume', allows: [:quantity, :id], &consume
