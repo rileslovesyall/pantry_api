@@ -7,6 +7,9 @@ certificate.pem
 
 /log/*
 
+/db/dev.sqlite3
+/db/test.sqlite3
+
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
