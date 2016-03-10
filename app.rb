@@ -159,6 +159,10 @@ class PantryAPI < Sinatra::Base
     # turn into API docs?
   end
 
+  get "/.well-known/acme-challenge/#{ENV['LE_AUTH_REQUEST']}" do
+     return ENV['LE_AUTH_RESPONSE']
+   end
+
   get '/api/v1/health' do
     "Yep, I'm healthy."
   end
