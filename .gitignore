@@ -4,7 +4,6 @@ configuration.cnf
 private-key.pem
 certificate.pem
 
-/log/*
 
 
 # Elastic Beanstalk Files
