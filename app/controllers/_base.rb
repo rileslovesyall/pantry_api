@@ -17,13 +17,11 @@ module Pantry
     configure :development do
       enable :logging
       enable :show_exceptions
-      set :session_secret, "wubalubbadubdub"
     end
 
     configure :test do
       enable :raise_errors
       disable :logging
-      disable :reload_templates
     end
 
     # supposed to help the site load faster. not sure..
