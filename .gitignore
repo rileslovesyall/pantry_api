@@ -3,6 +3,7 @@
 configuration.cnf
 private-key.pem
 certificate.pem
+/ssl/*
 
 /log/*
 
