@@ -102,3 +102,11 @@ NoMethodError: undefined method `cron_test' for User (call 'User.connection' to 
 /Users/rileypants/.rvm/gems/ruby-2.2.4@pantry_api/bin/ruby_executable_hooks:15:in `<main>'
 Tasks: TOP => cron:test
 (See full trace by running task with --trace)
+rake aborted!
+NoMethodError: undefined method `cron_test' for User (call 'User.connection' to establish a connection):Class
+/users/rileypants/.rvm/gems/ruby-2.2.4@pantry_api/gems/activerecord-4.2.5.1/lib/active_record/dynamic_matchers.rb:26:in `method_missing'
+/Users/rileypants/dev/capstone/pantry_api/Rakefile:68:in `block (2 levels) in <top (required)>'
+/Users/rileypants/.rvm/gems/ruby-2.2.4@pantry_api/bin/ruby_executable_hooks:15:in `eval'
+/Users/rileypants/.rvm/gems/ruby-2.2.4@pantry_api/bin/ruby_executable_hooks:15:in `<main>'
+Tasks: TOP => cron:test
+(See full trace by running task with --trace)

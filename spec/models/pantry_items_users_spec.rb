@@ -13,10 +13,15 @@ RSpec.describe PantryItemsUser, type: :model do
 
   describe ".consume(pantry_item_id, quant)" do
     context "when there are enough of this item to consume" do
-      
+      fit "subtracts the given quantity from the PIU with closest expiration date" do
+        p = create(:pantry_item, quantity: 2)
+        piul = create(:piul_add, pantry_item_id: p.id, quantity: 2)
+        PantryItemsUser.consume(p.id, 2)
+        expect(PantryItemsUser.first.id).to eq(2)
+      end
     end
     context "when there isn't enough of this item to consume" do
-      fit "throws an error" do
+      it "throws an error" do
         p = create(:pantry_item, quantity: 1)
         expect{PantryItemsUser.consume(p.id, 2)}.to raise_error("You don't have enough of this item to consume!")
       end
