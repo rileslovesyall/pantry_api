@@ -9,13 +9,13 @@ module Pantry
       def self.registered(app)
 
         show = lambda do
+          # binding.pry
           return @u.to_json(except: [:password_digest])
         end
 
         create = lambda do
           response.headers['Access-Control-Allow-Origin'] = '*'
           u = User.create(params)
-          # binding.pry
           if u.save
             u.reload
 
@@ -42,6 +42,13 @@ module Pantry
         end
 
         update = lambda do
+          if params['exp_soon_units'] == 'days'
+            params['exp_soon_days'] = params['exp_soon_quant'].to_i
+          elsif params['exp_soon_units'] == 'weeks'
+            params['exp_soon_days'] = params['exp_soon_quant'].to_i * 7
+          end
+          params.delete('exp_soon_quant')
+          params.delete('exp_soon_units')
           @u.update(params)
           if @u.save
             status 200
@@ -127,7 +134,7 @@ module Pantry
         app.get base + '/:id/out-of-stock', &consumed_pantry
         app.get base + '/:id/expiring_soon', &expiring_soon
         app.get base + '/:id', &show
-        app.post base + '/:id', allows: [:email, :name, :exp_pref], &update
+        app.post base + '/:id', allows: [:email, :name, :exp_notif, :exp_soon_quant, :exp_soon_units], &update
         app.delete base + '/:id', &delete
 
       end
