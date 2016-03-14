@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   end
 
   def personal_pantry
-    self.pantry_items.where('quantity >= 0')
+    self.pantry_items.where('quantity > 0')
   end
 
   def public_pantry
@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
   end
 
   def consumed_pantry
-    # TODO make this a thing
+    self.pantry_items.where('quantity = 0')
   end
 
   def self.send_expiration_emails

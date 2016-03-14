@@ -51,7 +51,7 @@ module Pantry
               pantryitem: p
               }.to_json
           else
-            status 400
+            status 500
             return {error: "Something went wrong, please try again."}.to_json
           end
 
@@ -75,7 +75,7 @@ module Pantry
               ingredients: @p.ingredients
             }.to_json
           else
-            status 400
+            status 500
             return {errors: "There was a mistake. Please try again."}.to_json
           end
         end
@@ -105,7 +105,7 @@ module Pantry
           get_product(params['id'])
           requester_must_own_pantry_item
           if params['quantity'].nil?
-            status 400
+            status 500
             return {error: "You must provide a quantity."}.to_json
           end
           begin
@@ -116,9 +116,9 @@ module Pantry
               action: 'consume'
               })
           rescue
-            status 400
+            # status 400
             return {
-              error: "You don't have any of this item to consume.",
+              error: "You don't have enough of this item to consume.",
               pantryitem: @p
               }.to_json
           end
@@ -134,7 +134,7 @@ module Pantry
           get_product(params['id'])
           requester_must_own_pantry_item
           if params['quantity'].nil?
-            status 400
+            status 500
             return {error: "You must provide a quantity."}.to_json
           end
           add = PantryItemsUserLog.create({
@@ -151,7 +151,7 @@ module Pantry
               pantryitem: @p
             }.to_json
           else
-            status 400
+            # status 400
             return {error: "Something went wrong. Please try again."}
           end
         end

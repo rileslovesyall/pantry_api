@@ -91,6 +91,13 @@ module Pantry
           return {pantry_items: p}.to_json
         end
 
+        consumed_pantry = lambda do
+          requester_must_be_user
+          p = @curr_user.consumed_pantry
+          status 200
+          return {pantry_items: p}.to_json
+        end
+
         expiring_soon = lambda do
           requester_must_be_user
           exp = PantryItemsUser.expiring_soon(@curr_user.id)
@@ -117,6 +124,7 @@ module Pantry
         app.get base + '/:id/public_pantry', &public_pantry
         app.get base + '/:id/personal_pantry', &personal_pantry
         app.get base + '/:id/private_pantry', &private_pantry
+        app.get base + '/:id/out-of-stock', &consumed_pantry
         app.get base + '/:id/expiring_soon', &expiring_soon
         app.get base + '/:id', &show
         app.post base + '/:id', allows: [:email, :name, :exp_pref], &update
