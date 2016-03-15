@@ -116,7 +116,7 @@ module Pantry
             item['name'] = pantry_item.name
             item['portion'] = pantry_item.portion
             item['quantity'] = e.quantity
-            item['exp_date'] = e.exp_date
+            item['exp_date'] = e.exp_date.to_date
             exp_items << item
           end
           status 200
