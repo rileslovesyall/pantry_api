@@ -4,7 +4,7 @@ class PantryItemsUser < ActiveRecord::Base
 
   def self.expiring_soon(user_id)
     days = User.find(user_id).exp_soon_days
-    return  self.where("user_id = ? AND exp_date < ?", user_id, DateTime.now + days)
+    return  self.where("user_id = ? AND exp_date < ?", user_id, DateTime.now + days).order(exp_date: :asc)
   end
 
   def self.consume(pantry_item_id, quant)
