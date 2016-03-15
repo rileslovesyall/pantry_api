@@ -20,6 +20,15 @@ class User < ActiveRecord::Base
     self.save
   end
 
+  def nice_exp
+    if self.exp_soon_days < 7
+      return "#{self.exp_soon_days} day(s)"
+    else 
+      wks = self.exp_soon_days / 7
+      return "#{wks} week(s)"
+    end
+  end
+
   def personal_pantry
     self.pantry_items.where('quantity > 0')
   end
@@ -54,6 +63,7 @@ class User < ActiveRecord::Base
         exp_html += "</ul>"
         exp_html += "<p>Make something delicious with your food before it goes bad! And remember, you can check out your list of what's expiring soon after you log in to <a href='www.pocketpantry.com'>Pocket Pantry</a>!</p>"
         exp_html += "Happy Eating, from the Pocket Pantry team."
+        
         ses.send_email(
           :to        => user.email,
           :source    => '"Pocket Pantry" <riley.r.spicer@gmail.com>',

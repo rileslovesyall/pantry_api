@@ -49,34 +49,39 @@ module Pantry
           end
           params.delete('exp_soon_quant')
           params.delete('exp_soon_units')
-          @u.update(params)
-          if @u.save
-            updateHTML = "<h1>Your Updated Account Information:</h1>"
-            updateHTML += "<div>Name: #{@u.name}</div>" +
-              "<div>Email: #{@u.email}</div>" +
-              "<div>Expiration Notifications: #{@u.exp_notif}</div>" +
-              "<div>Expiring Soon Setting: #{@u.nice_exp}</div>" +
-              "<p> If you did not intend to make these changes, please log in at <a href='www.pocketpantry.org'>Pocket Pantry</a> to adjust these changes.</p>" +
-              "Cheers, <br> The Pocket Pantry Team"
-            ses = AWS::SES::Base.new(
-              :access_key_id => ENV['AWS_KEY'],
-              :secret_access_key => ENV['AWS_SECRET'],
-              :server => 'email.us-west-2.amazonaws.com'
-            )
-            ses.send_email(
-              :to        => @u.email,
-              :source    => '"Pocket Pantry" <riley.r.spicer@gmail.com>',
-              :subject   => "Your Account Has Been Updated.",
-              :html_body => updateHTML
-            )
-            status 200
-            return {
-              message: "Your user information has been updated.",
-              user: @u.to_json(except: [:password_digest])
-              }.to_json
+          if @u.authenticate(params['password'])
+            @u.update(params)
+            if @u.save
+              updateHTML = "<h1>Your Updated Account Information:</h1>"
+              updateHTML += "<div>Name: #{@u.name}</div>" +
+                "<div>Email: #{@u.email}</div>" +
+                "<div>Expiration Notifications: #{@u.exp_notif}</div>" +
+                "<div>Expiring Soon Setting: #{@u.nice_exp}</div>" +
+                "<p> If you did not intend to make these changes, please log in at <a href='www.pocketpantry.org'>Pocket Pantry</a> to adjust these changes.</p>" +
+                "Cheers, <br> The Pocket Pantry Team"
+              ses = AWS::SES::Base.new(
+                :access_key_id => ENV['AWS_KEY'],
+                :secret_access_key => ENV['AWS_SECRET'],
+                :server => 'email.us-west-2.amazonaws.com'
+              )
+              ses.send_email(
+                :to        => @u.email,
+                :source    => '"Pocket Pantry" <riley.r.spicer@gmail.com>',
+                :subject   => "Your Account Has Been Updated.",
+                :html_body => updateHTML
+              )
+              status 200
+              return {
+                message: "Your user information has been updated.",
+                user: @u.to_json(except: [:password_digest])
+                }.to_json
+            else
+              status 500
+              return {error: "Something went wrong. Please try again."}.to_json
+            end
           else
             status 500
-            return {error: "Something went wrong. Please try again."}.to_json
+            return {error: "Incorrect password. Please try again."}.to_json
           end
         end
 
@@ -152,7 +157,7 @@ module Pantry
         app.get base + '/:id/out-of-stock', &consumed_pantry
         app.get base + '/:id/expiring_soon', &expiring_soon
         app.get base + '/:id', &show
-        app.post base + '/:id', allows: [:email, :name, :exp_notif, :exp_soon_quant, :exp_soon_units], &update
+        app.post base + '/:id', allows: [:email, :name, :exp_notif, :exp_soon_quant, :exp_soon_units, :password], &update
         app.delete base + '/:id', &delete
 
       end
