@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   has_many :pantry_items
   has_many :recipes
   has_many :pantry_items_user_logs
+  has_many :pantry_items_users
 
   has_secure_password
 

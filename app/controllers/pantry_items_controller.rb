@@ -86,13 +86,13 @@ module Pantry
             @p.pantry_item_categories.each do |pic|
               pic.delete
             end
-            @p.pantry_item_users.each do |piu|
+            @p.pantry_items_users.each do |piu|
               piu.delete
             end
             @p.delete
           rescue
             status 500
-            return {error: "Something went wrong. Please try again."}
+            return {error: "Something went wrong. Please try again."}.to_json
           end
           status 200
           response = {
