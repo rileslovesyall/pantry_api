@@ -134,11 +134,11 @@ class PantryAPI < Sinatra::Base
 
     def exp_to_days(time_to_exp, exp_units)
       if exp_units.downcase == 'years'
-        return time_to_exp * 365
+        return time_to_exp.to_i * 365
       elsif exp_units.downcase == 'months'
-        return time_to_exp * 30
+        return time_to_exp.to_i * 30
       elsif exp_units.downcase == 'days'
-        return time_to_exp
+        return time_to_exp.to_i
       end
     end
 

@@ -28,6 +28,7 @@ class PantryItem < ActiveRecord::Base
 
   def create_exp_join
     exp = DateTime.now + (self.days_to_exp).to_i
+    binding.pry
     p = PantryItemsUser.create({
       pantry_item_id: self.id,
       user_id: self.user.id,
