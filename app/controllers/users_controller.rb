@@ -87,6 +87,9 @@ module Pantry
 
         delete = lambda do
           begin
+            @u.pantry_items.each do |pi|
+              pi.delete
+            end
             @u.pantry_items_users.each do |piu|
               piu.delete
             end
