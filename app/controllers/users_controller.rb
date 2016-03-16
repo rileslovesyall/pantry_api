@@ -87,12 +87,15 @@ module Pantry
 
         delete = lambda do
           begin
-            @u.pantry_item_users.each do |pic|
-              pic.delete
+            @u.pantry_items_users.each do |piu|
+              piu.delete
+            end
+            @u.pantry_items_user_logs.each do |piul|
+              piul.delete
             end
             @u.delete
           rescue
-            status 400
+            status 500
             return {error: "Something went wrong. Please try again."}.to_json
           end
           status 200
