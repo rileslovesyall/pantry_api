@@ -10,6 +10,8 @@ certificate.pem
 /db/dev.sqlite3
 /db/test.sqlite3
 
+db/*.sqlite3
+
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
